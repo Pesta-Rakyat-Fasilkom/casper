@@ -9,7 +9,7 @@ import { League } from "./elements/league";
 export const Recruitment = () => {
   return (
     <div className="mx-auto px-4 my-12 max-w-5xl flex flex-col gap-12">
-      <h1 className="text-4xl text-center">Recruitment is open!</h1>
+      <h1 className="text-4xl text-center">PERAK 2025 is open for recuruitment!</h1>
 
       <Tabs>
         <TabsList className="mb-5 align-center">
