@@ -19,7 +19,7 @@ export const Creative = () => {
         <AccordionItem value="documentation-dnc">
           <AccordionTrigger>Documentation (DNC)</AccordionTrigger>
           <AccordionContent>
-            Deskripsi Divisi 2
+            DNC mendokumentasikan setiap momen penting Perak 2025 melalui foto, video, dan laporan tertulis. DNC memastikan semua dokumentasi tersusun rapi untuk publikasi dan arsip.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="documentation-dnc">
