@@ -3,6 +3,9 @@
 import { Creative } from "./elements/creative";
 import { Finance } from "./elements/finance";
 import { Marketing } from "./elements/marketing";
+import { FamilyGames } from "./elements/family-games";
+import { CompetitiveGames } from "./elements/competitive-games";
+import { CSLeague } from "./elements/cs-league";
 
 export const Recruitment = () => {
   return (
@@ -11,6 +14,9 @@ export const Recruitment = () => {
       <Creative />
       <Marketing />
       <Finance />
+      <FamilyGames />
+      <CompetitiveGames />
+      <CSLeague />
     </div>
   );
-}
+};
