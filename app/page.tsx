@@ -1,3 +1,3 @@
-import { Landing } from "@/modules/landing";
+import { Recruitment } from "@/modules/recruitment";
 
-export default Landing;
+export default Recruitment;
