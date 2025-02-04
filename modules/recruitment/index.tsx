@@ -1,6 +1,7 @@
 "use client";
 
 import { Creative } from "./elements/creative";
+import { Finance } from "./elements/finance";
 import { Marketing } from "./elements/marketing";
 
 export const Recruitment = () => {
@@ -9,6 +10,7 @@ export const Recruitment = () => {
       <h1 className="text-4xl text-center">Recruitment is open!</h1>
       <Creative />
       <Marketing />
+      <Finance />
     </div>
   );
 }

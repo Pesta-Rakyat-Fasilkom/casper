@@ -22,7 +22,7 @@ export const Creative = () => {
             DNC mendokumentasikan setiap momen penting Perak 2025 melalui foto, video, dan laporan tertulis. DNC memastikan semua dokumentasi tersusun rapi untuk publikasi dan arsip.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="documentation-dnc">
+        <AccordionItem value="dekorasi-dekor">
           <AccordionTrigger>Dekorasi (Dekor)</AccordionTrigger>
           <AccordionContent>
             Dekor bertanggung jawab atas konsep dekorasi yang mendukung tema acara. Dari panggung hingga elemen dekoratif lainnya, Dekor menciptakan suasana yang mendukung pengalaman acara yang lebih berkesan.
