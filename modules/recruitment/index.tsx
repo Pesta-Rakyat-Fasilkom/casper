@@ -18,7 +18,7 @@ export const Recruitment = () => {
       </h1>
 
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center">
-        <Button asChild variant="default">
+        <Button asChild variant="primary">
           <Link
             href="https://forms.gle/3BQsnTqoF4GfTASd6"
             rel="noopener noreferrer"
@@ -28,7 +28,7 @@ export const Recruitment = () => {
           </Link>
         </Button>
 
-        <Button asChild variant="default">
+        <Button asChild variant="primary">
           <Link
             href="https://forms.gle/QBcxBLpaWrZ6QH1b9"
             rel="noopener noreferrer"
