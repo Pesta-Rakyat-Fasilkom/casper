@@ -22,6 +22,8 @@ const config = {
       fontFamily: {
         "husky-stash": "var(--font-husky-stash)",
         geist: "var(--font-geist)",
+        orelega: "var(--orelega-one)",
+        poppins: "var(--poppins)",
       },
       colors: {
         accents: {

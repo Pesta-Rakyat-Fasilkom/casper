@@ -1,4 +1,4 @@
-import { Geist } from "next/font/google";
+import { Geist, Orelega_One, Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -24,6 +24,18 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const orelegaOne = Orelega_One({
+  weight: "400",
+  variable: "--orelega-one",
+  subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  weight: "400",
+  variable: "--poppins",
+  subsets: ["latin"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,12 +44,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(huskyStash.variable, geistSans.variable, "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]")}
+      className={cn(
+        huskyStash.variable,
+        geistSans.variable,
+        orelegaOne.variable,
+        "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]"
+      )}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground">
-        {children}
-      </body>
+      <body className="bg-background text-foreground">{children}</body>
     </html>
   );
 }
