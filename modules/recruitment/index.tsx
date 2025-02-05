@@ -6,6 +6,7 @@ import { Finance } from "./elements/finance";
 import { Marketing } from "./elements/marketing";
 import { League } from "./elements/league";
 import { Showrunner } from "./elements/showrunner";
+import { Operational } from "./elements/operational";
 
 export const Recruitment = () => {
   return (
@@ -19,6 +20,7 @@ export const Recruitment = () => {
           <TabsTrigger value="marketing">Marketing</TabsTrigger>
           <TabsTrigger value="finance">Finance</TabsTrigger>
           <TabsTrigger value="league">League</TabsTrigger>
+          <TabsTrigger value="operational">Operational</TabsTrigger>
         </TabsList>
 
         <TabsContent value="showrunner">
@@ -35,6 +37,9 @@ export const Recruitment = () => {
         </TabsContent>
         <TabsContent value="league">
           <League />
+        </TabsContent>
+        <TabsContent value="operational">
+          <Operational />
         </TabsContent>
       </Tabs>
     </div>
