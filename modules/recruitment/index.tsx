@@ -13,17 +13,27 @@ import { Operational } from "./elements/operational";
 export const Recruitment = () => {
   return (
     <div className="mx-auto px-4 my-12 max-w-5xl flex flex-col gap-12">
-      <h1 className="text-4xl text-center">PERAK 2025 IS OPEN FOR RECRUITMENT!</h1>
+      <h1 className="text-4xl text-center">
+        PERAK 2025 IS OPEN FOR RECRUITMENT!
+      </h1>
 
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center">
-        <Button asChild variant='default'>
-          <Link href="https://forms.gle/3BQsnTqoF4GfTASd6" rel="noopener noreferrer" target="_blank">
+        <Button asChild variant="primary">
+          <Link
+            href="https://forms.gle/3BQsnTqoF4GfTASd6"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             Form Open Recruitment
           </Link>
         </Button>
 
-        <Button asChild variant='default'>
-          <Link href="https://forms.gle/QBcxBLpaWrZ6QH1b9" rel="noopener noreferrer" target="_blank">
+        <Button asChild variant="primary">
+          <Link
+            href="https://forms.gle/QBcxBLpaWrZ6QH1b9"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             Form Pengumpulan Tugas
           </Link>
         </Button>
