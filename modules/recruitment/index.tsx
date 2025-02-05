@@ -15,7 +15,7 @@ export const Recruitment = () => {
     <div className="mx-auto px-4 my-12 max-w-5xl flex flex-col gap-12">
       <h1 className="text-4xl text-center">PERAK 2025 IS OPEN FOR RECRUITMENT!</h1>
 
-      <div className="flex flex-row gap-4 justify-center">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center">
         <Button asChild variant='default'>
           <Link href="https://forms.gle/3BQsnTqoF4GfTASd6" rel="noopener noreferrer" target="_blank">
             Form Open Recruitment
