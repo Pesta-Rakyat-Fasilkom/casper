@@ -13,7 +13,7 @@ import { Operational } from "./elements/operational";
 export const Recruitment = () => {
   return (
     <div className="mx-auto px-4 my-12 max-w-5xl flex flex-col gap-12">
-      <h1 className="text-4xl text-center">PERAK 2025 is open for recuruitment!</h1>
+      <h1 className="text-4xl text-center">PERAK 2025 is open for recruitment!</h1>
 
       <div className="flex flex-row gap-4 justify-center">
         <Button asChild variant='outline'>
