@@ -7,6 +7,12 @@ import { JobDescription } from "../components/job-description"
 export const Operational = () => {
   return (
     <div className="flex flex-col gap-5">
+      <Card className="bg-[#ff3bde] text-white">
+        <CardHeader>
+          <CardTitle>Bidang Operasional</CardTitle>
+        </CardHeader>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>E&S</CardTitle>

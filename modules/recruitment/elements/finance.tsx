@@ -3,13 +3,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export const Finance = () => {
   return (
     <div className="flex flex-col gap-5">
-      <p>
-        Divisi Finance di PERAK 2025 berperan penting dalam menjamin stabilitas
-        keuangan organisasi melalui pengelolaan dana yang transparan, efisien,
-        dan akuntabel. Finance juga bertanggung jawab dalam merumuskan strategi
-        pendanaan jangka panjang untuk memastikan setiap program dan kegiatan
-        PERAK 2025 dapat berjalan dengan lancar tanpa hambatan finansial.
-      </p>
+      <Card className="bg-[#ff3bde] text-white">
+        <CardHeader>
+          <CardTitle>Bidang Finance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          Divisi Finance di PERAK 2025 berperan penting dalam menjamin stabilitas
+          keuangan organisasi melalui pengelolaan dana yang transparan, efisien,
+          dan akuntabel. Finance juga bertanggung jawab dalam merumuskan strategi
+          pendanaan jangka panjang untuk memastikan setiap program dan kegiatan
+          PERAK 2025 dapat berjalan dengan lancar tanpa hambatan finansial.
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

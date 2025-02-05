@@ -3,6 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 export const Marketing = () => {
   return (
     <div className="flex flex-col gap-5">
+      <Card className="bg-[#ff3bde] text-white">
+        <CardHeader>
+          <CardTitle>Bidang Marketing</CardTitle>
+        </CardHeader>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>Direct Marketing</CardTitle>

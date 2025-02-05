@@ -6,6 +6,12 @@ import { Benefits } from "../components/benefits"
 export const Showrunner = () => {
   return (
     <div className="flex flex-col gap-5">
+      <Card className="bg-[#ff3bde] text-white">
+        <CardHeader>
+          <CardTitle>Bidang Showrunner</CardTitle>
+        </CardHeader>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>Event</CardTitle>
