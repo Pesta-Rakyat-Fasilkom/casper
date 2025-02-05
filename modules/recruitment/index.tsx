@@ -5,6 +5,7 @@ import { Creative } from "./elements/creative";
 import { Finance } from "./elements/finance";
 import { Marketing } from "./elements/marketing";
 import { League } from "./elements/league";
+import { Showrunner } from "./elements/showrunner";
 
 export const Recruitment = () => {
   return (
@@ -13,12 +14,16 @@ export const Recruitment = () => {
 
       <Tabs>
         <TabsList className="mb-5 align-center">
+          <TabsTrigger value="showrunner">Showrunner</TabsTrigger>
           <TabsTrigger value="creative">Creative</TabsTrigger>
           <TabsTrigger value="marketing">Marketing</TabsTrigger>
           <TabsTrigger value="finance">Finance</TabsTrigger>
           <TabsTrigger value="league">League</TabsTrigger>
         </TabsList>
 
+        <TabsContent value="showrunner">
+          <Showrunner />
+        </TabsContent>
         <TabsContent value="creative">
           <Creative />
         </TabsContent>
