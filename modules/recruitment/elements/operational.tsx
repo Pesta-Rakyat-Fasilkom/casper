@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionItem, AccordionTrigger  } from "@/components/ui/accordion"
 import { Benefits } from "../components/benefits"
 import { AccordionContent } from "@radix-ui/react-accordion"
+import { JobDescription } from "../components/job-description"
 
 export const Operational = () => {
   return (
@@ -11,6 +12,30 @@ export const Operational = () => {
           <CardTitle>E&S</CardTitle>
         </CardHeader>
         <CardContent>
+          <p>Divisi Equipment and Support (EnS) PERAK 2025 bertugas dalam memenuhi permintaan kebutuhan dari divisi lain seperti peminjaman tempat dan pengadaan barang. Selain itu, divis EnS juga bertugas untuk membantu divisi lain dalam melakukan kegiatan seperti melakukan live streaming dan pengoperasian platform Zoom meeting.</p>
+
+          <br />
+
+          <p>Kami mencari individu yang detail-oriented, komunikatif, dan siap jadi backbone acara PERAK 2025. Di divisi ini, kamu akan jadi problem solver yang memastikan semua perlengkapan, ruangan, dan teknologi siap mendukung kesuksesan acara. Mulai dari persiapan streaming untuk Competitive Games, pengoperasian platform Zoom untuk Family Games, hingga distribusi logistik dan akomodasi, semua akan berada di tanganmu!</p>
+
+          <Accordion type="single">
+            <JobDescription
+              description={[
+                "🛠️ Jadi Master of Equipment: Pastikan semua perlengkapan dan peralatan siap digunakan, dari awal acara hingga selesai.",
+                "📦 Jadi Logistic Hero: Atur pemesanan dan distribusi barang-barang yang dibutuhkan untuk mendukung acara.",
+                "🎥 Jadi Tech Supporter: Bantu persiapan streaming dan platform digital untuk Competitive Games dan Family Games.",
+                "🤝 Jadi Liaison Expert: Jadilah penghubung antara vendor, penanggung jawab properti, dan divisi-divisi lainnya.",
+                "🔒 Jadi Guardian of Security: Pastikan semua peralatan dan lokasi acara aman dan siap digunakan.",
+              ]}
+            />
+            <Benefits
+              benefits={[
+                "🛠️ Skill Development - Dengan jadi staf EnS, kalian bakal belajar problem solving, manajemen logistik, dan juga koordinasi dengan banyak pihak lain (karena buat nyari barang dan minjem venue butuh koordinasi dan komunikasi yang baik guys!). Selain itu, kalian juga kemungkinan belajar pengoperasian platform-platform digital seperti Zoom Meeting dan juga live streaming.",
+                "🚀 Networking Opportunity - Dengan jadi staf EnS, kalian bakalan banyak berkomunikasi dengan pihak lain, seperti dengan divisi lain (seperti Competitive Games, Family Games, dan lain-lain) ataupun vendor eksternal. Jadi, kalian pasti bakalan memperluas relasi kalian dan juga belajar berkomunikasi dengan orang lain secara profesional! 😎😎😎",
+                "💡 Pengalaman Organisasi Berharga - Dapatkan pengalaman langsung dalam menyiapkan dan mengawal acara besar seperti PERAK 2025. Dengan pengalaman menjadi staf EnS di PERAK 2025, kalian juga bisa menambah portofolio kalian sebagai ope profesional buat kepanitiaan selanjutnya😎",
+              ]}
+            />
+          </Accordion>
         </CardContent>
       </Card>
 
