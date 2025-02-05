@@ -3,6 +3,7 @@ import { INSTAGRAM_URL, TWITTER_URL, YOUTUBE_URL } from "./constant";
 import Image from "next/image";
 import { Instagram } from "@/components/icons/Instagram";
 import { Twitter } from "@/components/icons/Twitter";
+import { generateTextOutline } from "@/components/utils/textOutline";
 
 // TODO: fix outline and typography
 export const Footer: React.FC = () => {
@@ -32,11 +33,25 @@ export const Footer: React.FC = () => {
             className="w-[75px] h-[75px] md:w-[100px] md:h-[100px]"
           />
           <div className="flex flex-col items-center md:items-start gap-1">
-            <p className="font-husky-stash text-3xl text-text-dark-2 drop-shadow-[2px_2px_1px_#FFFFFF]">
+            <p
+              className="font-husky-stash text-3xl text-text-dark-2"
+              style={{
+                filter: generateTextOutline({ color: "white" }),
+              }}
+            >
               PERAK 2025
             </p>
             <div className="flex flex-row text-white drop-shadow-[2px_2px_1px_#4D1B51]">
-              <p className="font-husky-stash text-sm">#PacilRiaNostalgia</p>
+              <p
+                className="font-husky-stash text-sm"
+                style={{
+                  filter: generateTextOutline({
+                    color: "#4D1B51",
+                  }),
+                }}
+              >
+                #PacilRiaNostalgia
+              </p>
             </div>
           </div>
         </div>
