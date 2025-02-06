@@ -10,3 +10,5 @@ export interface NavLink {
 export interface NavDropdown extends NavLink {
   children: NavLink[];
 }
+
+export type NavItems = (NavLink | NavDropdown)[];

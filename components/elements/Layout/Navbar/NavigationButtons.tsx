@@ -1,4 +1,3 @@
-import { Laptop } from "@/components/icons";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,23 +9,22 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import React from "react";
-import { NavDropdown, NavLink } from "./interface";
+import { NavItems, NavLink } from "./interface";
 import { cn } from "@/lib/utils";
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   return (
-    <Link href={href} legacyBehavior passHref>
-      <NavigationMenuLink
-        className={cn(
-          navigationMenuTriggerStyle({
-            variant: "secondary",
-          }),
-          `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
-        )}
-      >
-        {icon}
-        <span>{label}</span>
-      </NavigationMenuLink>
+    <Link
+      href={href}
+      className={cn(
+        navigationMenuTriggerStyle({
+          variant: "secondary",
+        }),
+        `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
+      )}
+    >
+      {icon}
+      <span>{label}</span>
     </Link>
   );
 };
@@ -35,7 +33,7 @@ export const NavigationButtons = ({
   navbarLinks,
   className,
 }: {
-  navbarLinks: (NavLink | NavDropdown)[];
+  navbarLinks: NavItems;
   className?: string;
 }) => {
   return (

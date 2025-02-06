@@ -4,22 +4,21 @@ import { NavigationButtons } from "./NavigationButtons";
 import { NavDropdown, NavLink } from "./interface";
 import { Home } from "@/components/icons/Home";
 import { Laptop } from "@/components/icons";
-import { DoorOpen, Pen, User2 } from "lucide-react";
+import { Computer, DoorOpen, House, Pen, User2 } from "lucide-react";
+import { NavigationMobile } from "./NavigationMobile";
 
 const NavbarLinks: (NavLink | NavDropdown)[] = [
   {
     href: "#",
     label: "Home",
-    icon: (
-      <Home size="w-6 h-6" fill="fill-text-dark-1" className="stroke-[0.5]" />
-    ),
+    icon: <House />,
+    className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
   },
   {
     href: "#",
     label: "Dashboard",
-    icon: (
-      <Laptop size="w-6 h-6" fill="fill-text-dark-1" className="stroke-[0.5]" />
-    ),
+    icon: <Computer />,
+    className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
   },
   {
     href: "#",
@@ -66,7 +65,11 @@ export const Navbar = () => {
           </Link>
           <div className="flex items-center gap-3 md:gap-9">
             <NavigationButtons
-              className="hidden lg:flex"
+              className="hidden min-[1130px]:flex"
+              navbarLinks={NavbarLinks}
+            />
+            <NavigationMobile
+              className="flex min-[1130px]:hidden"
               navbarLinks={NavbarLinks}
             />
           </div>
