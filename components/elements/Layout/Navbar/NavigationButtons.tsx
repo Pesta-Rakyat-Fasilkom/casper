@@ -69,6 +69,7 @@ export const NavigationButtons = ({
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle({
+                      // Feel free to change this according to the design needs
                       variant: "secondary",
                     }),
                     "text-text-dark-1",
