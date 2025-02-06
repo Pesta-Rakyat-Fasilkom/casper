@@ -2,8 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { NavigationButtons } from "./NavigationButtons";
 import { NavDropdown, NavLink } from "./interface";
-import { Home } from "@/components/icons/Home";
-import { Laptop } from "@/components/icons";
 import { Computer, DoorOpen, House, Pen, User2 } from "lucide-react";
 import { NavigationMobile } from "./NavigationMobile";
 
