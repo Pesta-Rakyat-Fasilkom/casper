@@ -11,46 +11,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import { NavDropdown, NavLink } from "./interface";
-import { Home } from "@/components/icons/Home";
-import { DoorOpen, Pen, User2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const NavbarLinks: (NavLink | NavDropdown)[] = [
-  {
-    href: "#",
-    label: "Home",
-    icon: (
-      <Home size="w-6 h-6" fill="fill-text-dark-1" className="stroke-[0.5]" />
-    ),
-  },
-  {
-    href: "#",
-    label: "Dashboard",
-    icon: (
-      <Laptop size="w-6 h-6" fill="fill-text-dark-1" className="stroke-[0.5]" />
-    ),
-  },
-  {
-    href: "#",
-    label: "Username",
-    icon: <User2 />,
-    children: [
-      {
-        href: "#",
-        label: "Edit Profile",
-        icon: <Pen />,
-        className: "hover:bg-[#FF9900] hover:text-text-light-3",
-      },
-      {
-        href: "#",
-        label: "Keluar",
-        icon: <DoorOpen />,
-        className:
-          "hover:bg-accents-red-1 hover:text-text-light-3 font-bold text-accents-red-1",
-      },
-    ],
-  },
-];
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   return (
@@ -70,11 +31,17 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   );
 };
 
-export const NavigationButtons = ({ className }: { className?: string }) => {
+export const NavigationButtons = ({
+  navbarLinks,
+  className,
+}: {
+  navbarLinks: (NavLink | NavDropdown)[];
+  className?: string;
+}) => {
   return (
     <NavigationMenu className={className}>
       <NavigationMenuList className="*:min-w-32 gap-3">
-        {NavbarLinks.map((link) => {
+        {navbarLinks.map((link) => {
           if ("children" in link) {
             return (
               <NavigationMenuItem key={link.label}>
