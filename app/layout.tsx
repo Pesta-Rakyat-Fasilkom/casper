@@ -2,6 +2,7 @@ import { Geist, Orelega_One, Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Layout } from "@/components/elements/Layout";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -49,11 +50,13 @@ export default function RootLayout({
         geistSans.variable,
         orelegaOne.variable,
         poppins.variable,
-        "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]"
+        "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]",
       )}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground">{children}</body>
+      <body className="bg-background text-foreground">
+        <Layout>{children}</Layout>
+      </body>
     </html>
   );
 }
