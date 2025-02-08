@@ -21,7 +21,7 @@ export const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen md:mt-0 mt-28">
-      <div className="md:grid md:w-[1500px] md:grid-cols-2 sm:flex sm:flex-row items-center space-y-14">
+      <div className="md:grid md:w-[700px] lg:w-[1500px] md:grid-cols-2  sm:flex sm:flex-row items-center space-y-14">
         <div className="md:h-screen flex flex-col items-center justify-center ">
           <Image
             src={AuthDisk}
@@ -29,12 +29,12 @@ export const Login = () => {
             style={{
               animation: "spin 6s linear infinite",
             }}
-            className="relative md:absolute max-w-[350px] md:translate-y-0 md:max-w-[550px] md:w-1/4"
+            className="relative  md:absolute max-w-[350px] md:translate-y-0 md:max-w-[300px] lg:max-w-[550px] lg:w-1/4"
           />
           <Image
             src={PerakLogo}
             alt="Perak Logo"
-            className="absolute hidden md:block -translate-x-12 w-1/2 max-w-[577px] md:w-1/3"
+            className="absolute hidden md:block md:-translate-x-4 lg:-translate-x-12 w-1/2 md:max-w-[350px] lg:max-w-[577px] lg:w-1/3"
           />
           <Image
             src={PerakLogoMobile}
@@ -47,7 +47,7 @@ export const Login = () => {
             <Image
               src={PointyThing}
               alt="Pointy Thing"
-              className="w-36 md:block hidden -translate-y-32 translate-x-10"
+              className="  lg:w-36 lg:block hidden md:-translate-y-20 lg:-translate-y-32 md:translate-x-16 lg:translate-x-10"
             />
           </div>
           <Card
@@ -75,7 +75,7 @@ export const Login = () => {
                   <input
                     type="text"
                     placeholder="Masukkan e-mail Anda"
-                    className="w-full border-[2px] md:text-xl text-sm rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
+                    className="w-full border-[2px] lg:text-xl md:text-medium text-sm rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
                   />
                 </div>
                 <div className="w-full">
@@ -86,7 +86,7 @@ export const Login = () => {
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       placeholder="Masukkan password Anda"
-                      className="w-full  border-[2px] mb-3 md:text-xl text-sm rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
+                      className="w-full  border-[2px] mb-3 lg:text-xl md:text-medium text-sm rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
                     />
                   </div>
                   <div className="flex justify-end items-center pr-4">
