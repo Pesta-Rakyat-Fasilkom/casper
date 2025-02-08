@@ -5,12 +5,12 @@ import dayjs from "dayjs";
 import { cn } from "@/lib/utils";
 
 interface CountdownProps extends React.HTMLAttributes<HTMLDivElement> {
-  /* targetDate -> MM-DD-YYYY */
+  /* targetDate -> YYYY-MM-DDTHH:mm:ss+07:00 */
   targetDate: string;
 }
 
 const Countdown = React.forwardRef<HTMLDivElement, CountdownProps>(({ targetDate, className, ...props }, ref) => {
-  const parsedTargetDate = dayjs(targetDate, 'DD-MM-YYYY HH:mm:ss').add(20, "hours");
+  const parsedTargetDate = dayjs(targetDate, 'DD-MM-YYYY HH:mm:ss');
 
   const calculateTimeLeft = () => {
     const now = dayjs();

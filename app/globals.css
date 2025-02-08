@@ -6,6 +6,15 @@
   @apply font-husky-stash;
 } */
 
+@layer base {
+  /* Don't delete this
+   * Without it, rounded-md and rounded-sm (probably some other stuff as well) wouldn't work
+   * */
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
 body {
   @apply font-geist;
 }
