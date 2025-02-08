@@ -47,7 +47,7 @@ const DropdownComponent: React.FC<DropdownComponentProps> = ({
     >
       <DropdownTrigger>
         <button
-          className={`capitalize md:text-xl rounded-xl px-2 py-2 outline-none  text-sm w-full bg-[#fff7df] border-2 border-[#73476a] text-[#73476a]`}
+          className={`capitalize md:text-medium lg:text-lg rounded-xl px-2 py-2 outline-none  text-sm w-full bg-[#fff7df] border-2 border-[#73476a] text-[#73476a]`}
           disabled={disabled}
           aria-expanded="false"
         >
@@ -109,7 +109,7 @@ const RegistrationDropdowns = () => {
   return (
     <div className="w-full flex flex-col md:flex-row gap-5">
       <div className="w-full sm:w-1/2">
-        <p className="font-extrabold text-sm md:text-md mb-1">Elemen</p>
+        <p className="font-extrabold text-sm mb-1">Elemen</p>
         <DropdownComponent
           value={elementValue}
           onChange={setElementValue}
@@ -119,7 +119,7 @@ const RegistrationDropdowns = () => {
         />
       </div>
       <div className="w-full sm:w-1/2">
-        <p className="font-extrabold text-sm md:text-md mb-1">Angkatan</p>
+        <p className="font-extrabold text-sm  mb-1">Angkatan</p>
         <DropdownComponent
           value={angkatanValue}
           onChange={setAngkatanValue}
@@ -195,7 +195,7 @@ export const Register = () => {
                   <input
                     type="text"
                     placeholder="Masukkan e-mail Anda"
-                    className="w-full border-[2px] md:text-xl text-sm rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
+                    className="w-full border-[2px] lg:text-xl md:text-medium text-sm rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
                   />
                 </div>
                 <div className="w-full">
@@ -206,7 +206,7 @@ export const Register = () => {
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       placeholder="Masukkan password Anda"
-                      className="w-full  border-[2px] mb-3 md:text-xl text-sm rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
+                      className="w-full  border-[2px] mb-3 lg:text-xl md:text-medium  text-sm rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
                     />
                   </div>
                   <div className="flex justify-end items-center pr-4">
@@ -274,7 +274,7 @@ export const Register = () => {
                   <input
                     type="text"
                     placeholder="Masukkan id Line Anda"
-                    className="w-full border-[2px] rounded-[8px] md:text-xl text-sm focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
+                    className="w-full border-[2px] rounded-[8px] lg:text-xl md:text-medium text-sm focus:outline-[#2a3d92] border-[#2a3d92] bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
                   />
                 </div>
                 <div className="w-full">
@@ -284,7 +284,7 @@ export const Register = () => {
                   <input
                     type="number"
                     placeholder="Masukkan no. Whatsapp"
-                    className="w-full border-[2px] mb-5 rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] md:text-xl text-sm bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
+                    className="w-full border-[2px] mb-5 rounded-[8px] focus:outline-[#2a3d92] border-[#2a3d92] lg:text-xl md:text-medium text-sm bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
                   />
                 </div>
                 <Button className="w-full sm:w-56 h-12 text-lg z-10">
