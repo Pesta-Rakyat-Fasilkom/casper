@@ -19,6 +19,12 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        "husky" : "var(--husky)"
+      },
+      boxShadow: {
+        'bold': '0 4px 4px 0 rgba(0, 0, 0, 0.5)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

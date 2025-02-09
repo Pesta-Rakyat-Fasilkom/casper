@@ -1,4 +1,5 @@
-import { Geist } from "next/font/google";
+import { Geist,Poppins } from "next/font/google";
+import localFont from 'next/font/local'
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -16,13 +17,25 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const poppins = Poppins({
+  display: "swap",
+  subsets : ["latin"],
+  weight : ['400','500','700']
+})
+
+const huskyStash = localFont({
+  src:"../public/fonts/HuskyStash.otf",
+  display:'swap',
+  variable:"--husky"
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={geistSans.className} suppressHydrationWarning>
+    <html lang="en" className={`${geistSans.className} ${huskyStash.variable} ${poppins.className}`} suppressHydrationWarning>
       <body className="bg-background text-foreground">
         {children}
       </body>
