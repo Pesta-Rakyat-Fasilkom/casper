@@ -1,6 +1,8 @@
-import { Geist,Poppins } from "next/font/google";
+import { Geist, Orelega_One, Poppins } from "next/font/google";
 import localFont from 'next/font/local'
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { Layout } from "@/components/elements/Layout";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -14,6 +16,13 @@ export const metadata = {
 
 const geistSans = Geist({
   display: "swap",
+  variable: "--font-geist",
+  subsets: ["latin"],
+});
+
+const orelegaOne = Orelega_One({
+  weight: "400",
+  variable: "--orelega-one",
   subsets: ["latin"],
 });
 
@@ -24,9 +33,8 @@ const poppins = Poppins({
 })
 
 const huskyStash = localFont({
-  src:"../public/fonts/HuskyStash.otf",
-  display:'swap',
-  variable:"--husky"
+  src: "./husky-stash.otf",
+  variable: "--font-husky-stash",
 })
 
 export default function RootLayout({
@@ -37,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.className} ${huskyStash.variable} ${poppins.className}`} suppressHydrationWarning>
       <body className="bg-background text-foreground">
-        {children}
+        <Layout>{children}</Layout>
       </body>
     </html>
   );

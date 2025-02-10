@@ -3,13 +3,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export const Creative = () => {
   return (
     <div className="flex flex-col gap-5">
-      <p>
-        Divisi Kreatif di PERAK 2025 adalah tempat bagi ekspresi visual dan
-        artistik. Divisi ini bertanggung jawab menciptakan identitas visual,
-        mendokumentasikan momen penting, dan memastikan setiap acara tampil
-        menarik. Dengan berbagai peran di dalamnya, divisi ini menjadi wadah
-        bagi individu kreatif untuk berkarya.
-      </p>
+      <Card className="bg-[#ff3bde] text-white">
+        <CardHeader>
+          <CardTitle>Bidang Kreatif</CardTitle>
+        </CardHeader>
+        <CardContent>
+          Bidang Kreatif di PERAK 2025 adalah tempat bagi ekspresi visual dan
+          artistik. Divisi ini bertanggung jawab menciptakan identitas visual,
+          mendokumentasikan momen penting, dan memastikan setiap acara tampil
+          menarik. Dengan berbagai peran di dalamnya, divisi ini menjadi wadah
+          bagi individu kreatif untuk berkarya.
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

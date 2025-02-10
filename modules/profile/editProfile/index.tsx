@@ -16,7 +16,7 @@ export async function EditProfile() {
 
   return (
   <>
-    <div className="flex flex-col gap-3 mt-7 w-full py-3 px-4 mx-8">
+    <div className="flex flex-col gap-3 mt-7 w-full md:w-2/3 py-3 px-4 mx-8">
         <InputBox name="username" label="Username / Nama Panggilan" text={user.username} ></InputBox>
         <InputBox name="email" label="Email" text={user.email} isGray={true} ></InputBox>
         <InputBox name="Nama Lengkap" label="Nama Lengkap" text={user.name} ></InputBox>
