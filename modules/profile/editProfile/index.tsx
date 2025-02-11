@@ -1,5 +1,8 @@
+import { NavLink } from "@/components/elements/Layout/Navbar/interface";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { maskPassword } from '@/lib/utils';
+import { Link, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@radix-ui/react-navigation-menu";
 
 export async function EditProfile() {
   const user = {
@@ -21,7 +24,8 @@ export async function EditProfile() {
         <InputBox name="email" label="Email" text={user.email} isGray={true} ></InputBox>
         <InputBox name="Nama Lengkap" label="Nama Lengkap" text={user.name} ></InputBox>
         <div className="flex gap-2"> 
-          <InputBox name="elemen" label="Jenis" text="Alumni" size="xs"></InputBox>
+          <DropDownBox name="elemen" label="Jenis" text="Alumni" size="xs"></DropDownBox>
+          {/* <InputBox name="elemen" label="Jenis" text="Alumni" size="xs"></InputBox> */}
           <InputBox name="Angkatan" label="Angkatan" text="Chronos - 2020" size="xs"></InputBox>
         </div>
         <div className="flex gap-2"> 
@@ -50,9 +54,36 @@ function InputBox({ name, label, text,isGray=false ,size="sm", isPassword=false 
     return (
     <div id={name} className={`flex flex-col gap-1 border rounded-xl border-[#B4B4B4] bg-[#FBFBFB]  py-2 px-4 shadow-bold align-start w-full ${size == 'xs' ? "text-xs" : "text-sm"}`}>
       <p className={`font-poppins font-bold  text-[#700F32] `}>{label}</p>
-      <p className={` text-[#340717] ${isGray ? "opacity-50" : ""}`}>
+      <Input className="!border-[#340717] !h-0 w-full !rounded-none !border-b !border-b-1 !border-t-0 !border-l-0 !border-r-0 !ring-0 !bg-transparent"
+      disabled={isGray} defaultValue={isPassword ? maskPassword(text) : text} ></Input>
+      {/* <p className={` text-[#340717] ${isGray ? "opacity-50" : ""}`}>
         {isPassword ?  maskPassword(text) : text }
-      </p> 
+      </p>  */}
     </div>
     );
 }
+
+const DropDownBox = ({ name, label, text,isGray=false ,size="sm", isPassword=false } : InputBoxProps) => {
+  return(
+    <div id={name} className={`flex flex-col gap-1 border rounded-xl border-[#B4B4B4] bg-[#FBFBFB]  py-2 px-4 shadow-bold align-start w-full ${size == 'xs' ? "text-xs" : "text-sm"}`}>
+      <p className={`font-poppins font-bold  text-[#700F32] `}>{label}</p>
+      {/* <Input className="!border-[#340717] !h-0 w-full !rounded-none !border-b !border-b-1 !border-t-0 !border-l-0 !border-r-0 !ring-0 !bg-transparent"
+      disabled={isGray} defaultValue={isPassword ? maskPassword(text) : text} ></Input> */}
+      {/* <p className={` text-[#340717] ${isGray ? "opacity-50" : ""}`}>
+        {isPassword ?  maskPassword(text) : text }
+      </p>  */}
+      <NavigationMenu >
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Item lol</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink>Halo</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
+  )
+}
+
+
