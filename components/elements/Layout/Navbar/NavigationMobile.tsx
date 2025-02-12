@@ -15,7 +15,7 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
         navigationMenuTriggerStyle({
           variant: "secondary",
         }),
-        `text-text-dark-1 rounded-sm justify-start ${className}`,
+        `text-text-dark-1 rounded-sm justify-start ${className}`
       )}
     >
       {icon}
@@ -26,7 +26,7 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
 
 const MenuMobile = ({ navbarLinks }: { navbarLinks: NavItems }) => {
   return (
-    <div className="absolute top-[calc(80px+1rem)] right-[5%] bg-[#FFFFFF] dark:bg-[#101617]">
+    <div className="absolute top-24 right-[5%] bg-[#FFFFFF] dark:bg-[#101617]">
       <ul className="bg-button-secondary rounded-sm p-2 flex flex-col ">
         {navbarLinks.map((link) => {
           if ("children" in link) {

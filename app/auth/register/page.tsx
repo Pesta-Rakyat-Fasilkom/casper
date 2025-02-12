@@ -1,3 +1,3 @@
-import { Register } from "@/modules/register";
+import { Register } from "@/modules/auth/register";
 
 export default Register;
