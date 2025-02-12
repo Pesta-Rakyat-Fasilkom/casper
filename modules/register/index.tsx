@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import LoveIcon from "../../public/groups-heart.png";
 import PointyThing from "../../public/pointy-thing.png";
 import AuthDisk from "../../public/auth-disk.png";
-import PerakLogo from "../../public/group-perak-icon.png";
-import PerakLogoMobile from "@/public/group-perak-icon-mobile.png";
 import Barcode from "@/public/barcode-mobile.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -151,7 +149,7 @@ export const Register = () => {
             }}
             className="relative  md:absolute max-w-[350px] md:translate-y-0 md:max-w-[300px] lg:max-w-[550px] lg:w-1/4"
           />
-          <Image
+          {/* <Image
             src={PerakLogo}
             alt="Perak Logo"
             className="absolute hidden md:block md:-translate-x-4 lg:-translate-x-12 w-1/2 md:max-w-[350px] lg:max-w-[577px] lg:w-1/3"
@@ -160,7 +158,7 @@ export const Register = () => {
             src={PerakLogoMobile}
             alt="Perak Logo"
             className="absolute block md:hidden -translate-y-24 -translate-x-6 max-w-96"
-          />
+          /> */}
         </div>
         <div className="relative flex flex-col items-center">
           <div className="absolute top-0 right-0">

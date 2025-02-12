@@ -1,4 +1,4 @@
-import {heroui} from '@heroui/theme';
+import { heroui } from "@heroui/theme";
 import type { Config } from "tailwindcss";
 
 const config = {
@@ -9,7 +9,7 @@ const config = {
     "./modules/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./node_modules/@heroui/theme/dist/components/(dropdown|menu|divider|popover|button|ripple|spinner).js"
+    "./node_modules/@heroui/theme/dist/components/(dropdown|menu|divider|popover|button|ripple|spinner).js",
   ],
   prefix: "",
   theme: {
@@ -21,6 +21,9 @@ const config = {
       },
     },
     extend: {
+      minHeight: {
+        "view-screen": "calc(100vh - 80px)",
+      },
       fontFamily: {
         "husky-stash": "var(--font-husky-stash)",
         geist: "var(--font-geist)",
@@ -157,7 +160,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),heroui()],
+  plugins: [require("tailwindcss-animate"), heroui()],
 } satisfies Config;
 
 export default config;

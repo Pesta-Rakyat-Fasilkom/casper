@@ -8,7 +8,7 @@ import { generateTextOutline } from "@/components/utils/textOutline";
 // TODO: fix outline and typography
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full py-12 sm:px-8 lg:px-20 bg-accents-pink-4 relative overflow-hidden">
+    <footer className="left-0 right-0 py-12 sm:px-8 lg:px-20 bg-accents-pink-4 relative overflow-hidden">
       <Image
         src={"/footer-star-2.png"}
         alt="PERAK 2025 Logo"
