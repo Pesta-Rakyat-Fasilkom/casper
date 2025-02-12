@@ -2,14 +2,11 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import LoveIcon from "@/public/groups-heart.png";
-import PointyThing from "@/public/pointy-thing.png";
-import AuthDisk from "@/public/auth-disk.png";
-import Barcode from "@/public/barcode-mobile.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Eye, EyeClosed, EyeOff } from "lucide-react";
+import SpinningDisk from "@/components/elements/SpinningDisk";
 
 export const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -19,53 +16,20 @@ export const Login = () => {
   };
 
   return (
-    <div className="w-full grid max-md:grid-rows-[2fr_3fr]  md:grid-cols-2 items-center justify-center min-h-view-screen px-4 py-12">
-      {/* <div className="absolute top-0 right-0">
-            <Image
-              src={PointyThing}
-              alt="Pointy Thing"
-              className="  lg:w-36 lg:block hidden md:-translate-y-20 lg:-translate-y-32 md:translate-x-16 lg:translate-x-10"
-            />
-          </div> */}
-      <div className="flex justify-center items-center relative w-full">
-        <div className="w-[80%] aspect-square absolute">
-          <div className="w-[35%] aspect-square absolute -left-[12%] -top-[15%]">
-            <Image
-              src="/logo-thunder.png"
-              fill
-              alt="thunder"
-              className="object-contain"
-            />
-          </div>
-          <Image
-            src="/auth-disk.png"
-            alt="disk"
-            fill
-            className=""
-            style={{
-              animation: "spin 3s linear infinite",
-            }}
-          />
-          <Image
-            src="/perak-logo-auth.png"
-            fill
-            alt="logo"
-            className="object-contain scale-125a"
-          />
-          <div className="w-[80%] aspect-square absolute -left-[30%] -bottom-[40%]">
-            <Image
-              src="/barcode.png"
-              fill
-              alt="barcode"
-              className="object-contain hidden md:block"
-            />
-          </div>
-        </div>
-      </div>
+    <div className="w-full grid max-md:grid-rows-[2fr_3fr] md:grid-cols-2 items-center justify-center min-h-view-screen px-4 pt-12 pb-32">
+      <SpinningDisk />
       <div className="flex flex-col items-center px-4">
         <div className="w-full max-w-[420px] md:max-w-[480px] relative mr-3 mb-3">
+          <div className="absolute w-16 h-16 -top-16 -right-16">
+            <Image
+              fill
+              src="/pointy-thing.png"
+              alt="pointy"
+              className="object-contain z-10"
+            />
+          </div>
           <div className="h-full w-full absolute rounded-[18px] bg-black -z-10 -right-3 -bottom-3" />
-          <Card className="border-none rounded-[18px] overflow-hidden">
+          <Card className="border-none rounded-[18px] overflow-hidden relative">
             <div className="flex border-none justify-end bg-accents-yellow-4 p-3">
               <div className="flex flex-row gap-2 mr-4">
                 <div className="w-4 h-4 bg-[#d9d9d9] rounded-full"></div>
@@ -118,22 +82,12 @@ export const Login = () => {
             </div>
             <div className="flex h-10 border-none justify-end bg-[#d9d9d9] p-3"></div>
           </Card>
-          <div className="w-full h-16 md:h-24 absolute z-10 -bottom-8 md:-bottom-14">
+          <div className="w-full h-16 md:h-20 absolute z-10 -bottom-8 md:-bottom-12">
             <Image
               src="/groups-heart.png"
               fill
               alt="hearts"
               className="object-contain"
-            />
-          </div>
-        </div>
-        <div className="relative h-20 w-full">
-          <div className="absolute w-full h-full top-6 -right-24">
-            <Image
-              src="/barcode.png"
-              fill
-              alt="barcode"
-              className="object-contain block md:hidden top-10"
             />
           </div>
         </div>
