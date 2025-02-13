@@ -54,9 +54,7 @@ export default function RootLayout({
       )}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground">
-        <Layout>{children}</Layout>
-      </body>
+      <body className="bg-background text-foreground">{children}</body>
     </html>
   );
 }

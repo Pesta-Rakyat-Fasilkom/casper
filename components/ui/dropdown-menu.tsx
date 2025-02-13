@@ -23,16 +23,16 @@ const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
     return (
       <DropdownMenuPrimitive.Root open={open} onOpenChange={setOpen}>
         <DropdownMenuPrimitive.Trigger asChild>
-        <button className="w-[328px] sm:w-[388px] h-11 p-2.5 bg-[#bf5989] rounded-[10px] justify-between items-center gap-2.5 inline-flex hover:bg-[#fff7df] hover:text-[#bf5989] group border-2 border-[#bf5989] data-[state=open]:bg-[#fff7df]">
-          <div className="text-[#fff7df] text-sm font-bold font-['Poppins'] leading-tight tracking-tight group-hover:text-[#bf5989] group-data-[state=open]:text-[#bf5989]">
-            {selected || triggerLabel}
-          </div>
-          {open ? (
+          <button className="w-[328px] sm:w-[388px] h-11 p-2.5 bg-[#bf5989] rounded-[10px] justify-between items-center gap-2.5 inline-flex hover:bg-[#fff7df] hover:text-[#bf5989] group border-2 border-[#bf5989] data-[state=open]:bg-[#fff7df]">
+            <div className="text-[#fff7df] text-sm font-bold font-['Poppins'] leading-tight tracking-tight group-hover:text-[#bf5989] group-data-[state=open]:text-[#bf5989]">
+              {selected || triggerLabel}
+            </div>
+            {open ? (
               <ChevronUp className="w-5 h-5 text-[#bf5989] group-hover:text-[#fff7df]" />
             ) : (
               <ChevronDown className="w-5 h-5 text-[#fff7df] group-hover:text-[#bf5989]" />
-          )}
-        </button>
+            )}
+          </button>
         </DropdownMenuPrimitive.Trigger>
         <DropdownMenuPrimitive.Content
           ref={ref}
@@ -46,22 +46,18 @@ const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
             if (React.isValidElement(child)) {
               return React.cloneElement(child as React.ReactElement<any>, {
                 onSelect: () => handleSelect((child.props as any).children),
-                'data-selected': selected === (child.props as any).children,
+                "data-selected": selected === (child.props as any).children,
               });
             }
             return child;
           })}
         </DropdownMenuPrimitive.Content>
       </DropdownMenuPrimitive.Root>
-    )
-  });
+    );
+  }
+);
 
 DropdownMenu.displayName = "DropdownMenu";
-
-interface DropdownMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  onSelect?: () => void;
-}
 
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,

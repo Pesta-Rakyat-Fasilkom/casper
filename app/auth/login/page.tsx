@@ -1,3 +1,12 @@
+import { Layout } from "@/components/elements/Layout";
 import { Login } from "@/modules/auth/login";
 
-export default Login;
+const Page = () => {
+  return (
+    <Layout>
+      <Login />
+    </Layout>
+  );
+};
+
+export default Page;
