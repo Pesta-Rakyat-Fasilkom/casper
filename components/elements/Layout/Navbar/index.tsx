@@ -42,7 +42,7 @@ const NavbarLinks: (NavLink | NavDropdown)[] = [
 
 export const Navbar = () => {
   return (
-    <nav className="fixed z-[50] w-full h-[80px] bg-accents-pink-4">
+    <nav className="fixed inset-x-0 z-50 h-[80px] bg-accents-pink-4">
       <div className="h-full flex flex-row items-center justify-between px-2">
         <Image
           src={"/navbar-thunder.png"}

@@ -43,7 +43,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.className} ${huskyStash.variable} ${poppins.className}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={cn(
+        huskyStash.variable,
+        geistSans.variable,
+        orelegaOne.variable,
+        poppins.variable,
+        "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]"
+      )}
+      suppressHydrationWarning
+    >
       <body className="bg-background text-foreground">
         <Layout>{children}</Layout>
       </body>

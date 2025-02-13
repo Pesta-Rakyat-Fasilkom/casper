@@ -8,7 +8,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Navbar />
       <Toaster />
-      <main className="w-full min-h-screen pt-[80px]">{children}</main>
+      <main className="w-full max-w-[1440px] mx-auto min-h-screen pt-[80px]">
+        {children}
+      </main>
       <Footer />
     </>
   );
