@@ -27,6 +27,8 @@ interface SidebarProps {
       className?: string;
     }[];
   };
+  selectedGame: string;
+  onGameSelect: (game: string) => void;
 }
 
 interface NavLink {
@@ -57,10 +59,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   isSidebarOpen,
   Games,
   Navigation,
+  selectedGame,
+  onGameSelect,
 }) => {
   return (
     <div
-      className={`${isSidebarOpen && "translate-x-0"} w-80 flex flex-col items-center px-8 inset-y-0 fixed bg-accents-pink-4 border-r-4 border-section-4 rounded-r-md -translate-x-full md:translate-x-0 transition z-[9999]`}
+      className={`${isSidebarOpen && "translate-x-0"} w-80 flex flex-col items-center px-8 inset-y-0 fixed bg-accents-pink-4 border-r-4 border-section-4 rounded-r-md -translate-x-full md:translate-x-0 transition z-10`}
     >
       <div>
         <div className="w-full h-20 relative my-14">
@@ -72,16 +76,19 @@ const Sidebar: React.FC<SidebarProps> = ({
           />
         </div>
         <div className="w-full">
-          <Button variant="tertiary" className="text-lg text-text-dark-1">
+          <div className="flex gap-2 justify-center text-lg text-text-dark-1">
             <House />
-            Dashboard
-          </Button>
+            <span>Dashboard</span>
+          </div>
           <div className="border-t-4 border-b-4 border-text-dark-1 px-2 py-4 my-4">
             {Games.map((game, idx) => (
               <Button
                 key={idx}
                 variant="tertiary"
-                className="text-lg text-text-dark-1"
+                className={`text-lg text-text-dark-1 w-full justify-start ${
+                  selectedGame === game ? "bg-accents-yellow-4" : ""
+                }`}
+                onClick={() => onGameSelect(game)}
               >
                 <Star />
                 {game}
