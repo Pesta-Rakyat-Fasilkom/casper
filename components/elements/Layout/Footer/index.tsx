@@ -1,12 +1,17 @@
+"use client";
 import { Youtube } from "@/components/icons/Youtube";
 import { INSTAGRAM_URL, TWITTER_URL, YOUTUBE_URL } from "./constant";
 import Image from "next/image";
 import { Instagram } from "@/components/icons/Instagram";
 import { Twitter } from "@/components/icons/Twitter";
 import { generateTextOutline } from "@/components/utils/textOutline";
+import { usePathname } from "next/navigation";
 
 // TODO: fix outline and typography
 export const Footer: React.FC = () => {
+  const pathname = usePathname();
+  if (pathname.includes("/dashboard")) return;
+
   return (
     <footer className="left-0 right-0 py-12 sm:px-8 lg:px-20 bg-accents-pink-4 relative overflow-hidden">
       <Image

@@ -1,11 +1,14 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { NavigationButtons } from "./NavigationButtons";
 import { NavDropdown, NavLink } from "./interface";
 import { Computer, DoorOpen, House, Pen, User2 } from "lucide-react";
 import { NavigationMobile } from "./NavigationMobile";
+import { User } from "@supabase/supabase-js";
+import { usePathname } from "next/navigation";
 
-const NavbarLinks: (NavLink | NavDropdown)[] = [
+let NavbarLinks: (NavLink | NavDropdown)[] = [
   {
     href: "#",
     label: "Home",
@@ -30,7 +33,7 @@ const NavbarLinks: (NavLink | NavDropdown)[] = [
         className: "hover:bg-[#FF9900] hover:text-text-light-3",
       },
       {
-        href: "#",
+        href: "/auth/logout",
         label: "Keluar",
         icon: <DoorOpen />,
         className:
@@ -40,7 +43,17 @@ const NavbarLinks: (NavLink | NavDropdown)[] = [
   },
 ];
 
-export const Navbar = () => {
+export const Navbar = ({ user }: { user: User | null }) => {
+  const pathname = usePathname();
+  if (pathname.includes("/dashboard")) return;
+
+  const updatedNavbarLinks = NavbarLinks.map((link) => {
+    if (link.label === "Username" && user) {
+      return { ...link, label: user.email as string };
+    }
+    return link;
+  });
+
   return (
     <nav className="fixed inset-x-0 z-50 h-[80px] bg-accents-pink-4">
       <div className="h-full flex flex-row items-center justify-between px-2">
@@ -64,11 +77,11 @@ export const Navbar = () => {
           <div className="flex items-center gap-3 md:gap-9">
             <NavigationButtons
               className="hidden min-[1130px]:flex"
-              navbarLinks={NavbarLinks}
+              navbarLinks={updatedNavbarLinks} // Use the updated array
             />
             <NavigationMobile
               className="flex min-[1130px]:hidden"
-              navbarLinks={NavbarLinks}
+              navbarLinks={updatedNavbarLinks} // Use the updated array
             />
           </div>
         </div>

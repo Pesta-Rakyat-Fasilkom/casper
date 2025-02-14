@@ -3,11 +3,7 @@ import { Register } from "@/modules/auth/register";
 import { signUpAction } from "@/app/actions";
 
 const Page = () => {
-  return (
-    <Layout>
-      <Register signUpAction={signUpAction} />
-    </Layout>
-  );
+  return <Register signUpAction={signUpAction} />;
 };
 
 export default Page;

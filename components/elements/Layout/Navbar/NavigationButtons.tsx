@@ -11,8 +11,25 @@ import Link from "next/link";
 import React from "react";
 import { NavItems, NavLink } from "./interface";
 import { cn } from "@/lib/utils";
+import { signOutAction } from "@/app/actions";
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
+  if (label === "Keluar") {
+    return (
+      <form
+        action={signOutAction}
+        className={cn(
+          navigationMenuTriggerStyle({
+            variant: "secondary",
+          }),
+          `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
+        )}
+      >
+        {icon}
+        <button type="submit">{label}</button>
+      </form>
+    );
+  }
   return (
     <Link
       href={href}
@@ -20,7 +37,7 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
         navigationMenuTriggerStyle({
           variant: "secondary",
         }),
-        `text-text-dark-1 w-full rounded-sm justify-start ${className}`
+        `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
       )}
     >
       {icon}
@@ -72,7 +89,7 @@ export const NavigationButtons = ({
                       // Feel free to change this according to the design needs
                       variant: "secondary",
                     }),
-                    "text-text-dark-1"
+                    "text-text-dark-1",
                   )}
                 >
                   {link.icon}
