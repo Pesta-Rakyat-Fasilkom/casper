@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { House, Star } from "lucide-react";
+import { House } from "lucide-react";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -46,7 +46,7 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
         navigationMenuTriggerStyle({
           variant: "secondary",
         }),
-        `text-text-dark-1 w-full rounded-sm justify-start ${className}`
+        `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
       )}
     >
       {icon}
@@ -64,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <div
-      className={`${isSidebarOpen && "translate-x-0"} w-80 flex flex-col items-center px-8 inset-y-0 fixed bg-accents-pink-4 border-r-4 border-section-4 rounded-r-md -translate-x-full md:translate-x-0 transition z-10`}
+      className={`${isSidebarOpen && "translate-x-0"} w-80 flex flex-col items-center px-8 inset-y-0 fixed bg-accents-pink-4 border-r-4 min-[1441px]:border-x-4 border-section-4 rounded-r-md min-[1441px]:rounded-md -translate-x-full md:translate-x-0 transition z-10`}
     >
       <div>
         <div className="w-full h-20 relative my-14">

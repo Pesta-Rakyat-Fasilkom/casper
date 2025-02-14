@@ -10,13 +10,13 @@ import { usePathname } from "next/navigation";
 
 let NavbarLinks: (NavLink | NavDropdown)[] = [
   {
-    href: "#",
+    href: "/",
     label: "Home",
     icon: <House />,
     className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
   },
   {
-    href: "#",
+    href: "/dashboard",
     label: "Dashboard",
     icon: <Computer />,
     className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",

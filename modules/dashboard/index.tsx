@@ -128,7 +128,7 @@ export const Dashboard = () => {
 
   // Filter games based on selection
   const filteredGames = MyGames.filter((game) =>
-    selectedGame === "All Games" ? true : game.game === selectedGame
+    selectedGame === "All Games" ? true : game.game === selectedGame,
   );
 
   // Handler for game selection
@@ -138,7 +138,7 @@ export const Dashboard = () => {
   };
 
   return (
-    <main className="flex">
+    <div className="flex">
       {/* Sidebar Trigger */}
       <div className="fixed right-4 top-4 w-16 h-16 rounded-xl bg-accents-pink-4 border-4 border-text-dark-3 md:hidden z-50">
         <button
@@ -260,6 +260,6 @@ export const Dashboard = () => {
           </div>
         </Card>
       </div>
-    </main>
+    </div>
   );
 };
