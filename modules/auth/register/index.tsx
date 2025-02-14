@@ -131,7 +131,11 @@ const RegistrationDropdowns = () => {
   );
 };
 
-export const Register = () => {
+export const Register = ({
+  signUpAction,
+}: {
+  signUpAction: (formData: FormData) => Promise<never>;
+}) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -163,6 +167,7 @@ export const Register = () => {
                   </p>
                   <input
                     type="text"
+                    name="email"
                     placeholder="Masukkan E-mail"
                     className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-[#fff7df] py-2 px-4 placeholder-text-dark-3"
                   />
@@ -174,6 +179,7 @@ export const Register = () => {
                   <div className="flex items-center relative">
                     <input
                       type={isPasswordVisible ? "text" : "password"}
+                      name="password"
                       placeholder="Masukkan Password"
                       className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-accents-yellow-5 py-2 px-4 placeholder-text-dark-3"
                     />
@@ -210,7 +216,13 @@ export const Register = () => {
                     />
                   </div>
                 </div>
-                <Button className="w-48 h-12 text-lg">Register</Button>
+                <Button
+                  type="submit"
+                  formAction={signUpAction}
+                  className="w-48 h-12 text-lg"
+                >
+                  Register
+                </Button>
                 <p className="mt-2 font-poppins text-sm md:text-lg text-black">
                   Sudah punya akun?{" "}
                   <span className="underline">

@@ -178,7 +178,7 @@ export const Dashboard = () => {
             ) : (
               filteredGames.map((game, idx) => (
                 <div key={idx}>
-                  <Card className="bg-accents-yellow-4 border-2 border-black pt-2 px-4 pb-4">
+                  <Card className="relative bg-accents-yellow-4 border-2 border-black pt-2 px-4 pb-4">
                     <h1 className="text-6xl font-husky-stash text-text-dark-3">
                       {game.team_name}
                     </h1>
@@ -246,6 +246,13 @@ export const Dashboard = () => {
                         Edit
                       </Button>
                     </div>
+                    <Image
+                      src="/pop-up.png"
+                      width={120}
+                      height={120}
+                      alt="pop-up"
+                      className="object-contain absolute -top-12 -right-12 max-sm:scale-75"
+                    />
                   </Card>
                 </div>
               ))

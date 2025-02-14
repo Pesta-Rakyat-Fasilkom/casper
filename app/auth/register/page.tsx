@@ -1,10 +1,13 @@
 import { Layout } from "@/components/elements/Layout";
 import { Register } from "@/modules/auth/register";
+import { signUpAction } from "@/app/actions";
 
 const Page = () => {
   return (
     <Layout>
-      <Register />
+      <form>
+        <Register signUpAction={signUpAction} />
+      </form>
     </Layout>
   );
 };

@@ -8,7 +8,11 @@ import { useState } from "react";
 import { Eye, EyeClosed, EyeOff } from "lucide-react";
 import SpinningDisk from "@/components/elements/SpinningDisk";
 
-export const Login = () => {
+export const Login = ({
+  signInAction,
+}: {
+  signInAction: (formData: FormData) => Promise<never>;
+}) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -48,6 +52,7 @@ export const Login = () => {
                   </p>
                   <input
                     type="text"
+                    name="email"
                     placeholder="Masukkan E-mail"
                     className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
                   />
@@ -59,6 +64,7 @@ export const Login = () => {
                   <div className="flex items-center relative">
                     <input
                       type={isPasswordVisible ? "text" : "password"}
+                      name="password"
                       placeholder="Masukkan Password"
                       className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
                     />

@@ -86,11 +86,13 @@ const Sidebar: React.FC<SidebarProps> = ({
                 key={idx}
                 variant="tertiary"
                 className={`text-lg text-text-dark-1 w-full justify-start ${
-                  selectedGame === game ? "bg-accents-yellow-4" : ""
+                  selectedGame === game ? "bg-accents-pink-3" : ""
                 }`}
                 onClick={() => onGameSelect(game)}
               >
-                <Star />
+                <div className="relative w-6 h-6">
+                  <Image src="/star.svg" fill alt="star" />
+                </div>
                 {game}
               </Button>
             ))}
