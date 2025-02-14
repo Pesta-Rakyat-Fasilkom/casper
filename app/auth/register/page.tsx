@@ -5,9 +5,7 @@ import { signUpAction } from "@/app/actions";
 const Page = () => {
   return (
     <Layout>
-      <form>
-        <Register signUpAction={signUpAction} />
-      </form>
+      <Register signUpAction={signUpAction} />
     </Layout>
   );
 };
