@@ -5,9 +5,7 @@ import { signInAction } from "@/app/actions";
 const Page = () => {
   return (
     <Layout>
-      <form>
-        <Login signInAction={signInAction} />
-      </form>
+      <Login signInAction={signInAction} />
     </Layout>
   );
 };

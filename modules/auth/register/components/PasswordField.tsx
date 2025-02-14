@@ -17,7 +17,11 @@ export const PasswordField = () => {
           placeholder="Masukkan Password"
           className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-accents-yellow-5 py-2 px-4 placeholder-text-dark-3"
         />
-        <button onClick={togglePasswordVisibility} className="absolute right-4">
+        <button
+          onClick={togglePasswordVisibility}
+          className="absolute right-4"
+          type="button"
+        >
           {isPasswordVisible ? <Eye /> : <EyeOff />}
         </button>
       </div>

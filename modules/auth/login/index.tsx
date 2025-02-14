@@ -1,24 +1,15 @@
-"use client";
-
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { Eye, EyeClosed, EyeOff } from "lucide-react";
 import SpinningDisk from "@/components/elements/SpinningDisk";
+import { PasswordField } from "../register/components/PasswordField";
 
 export const Login = ({
   signInAction,
 }: {
   signInAction: (formData: FormData) => Promise<never>;
 }) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-
   return (
     <div className="w-full grid max-md:grid-rows-[2fr_3fr] md:grid-cols-2 items-center justify-center min-h-view-screen px-4 pt-12 pb-32">
       <SpinningDisk />
@@ -41,7 +32,7 @@ export const Login = ({
                 <div className="w-4 h-4 bg-accents-pink-1 rounded-full"></div>
               </div>
             </div>
-            <div className="bg-accents-yellow-5 font-poppins text-text-dark-1 font-public mb-0 text-lg p-10">
+            <form className="bg-accents-yellow-5 font-poppins text-text-dark-1 font-public mb-0 text-lg p-10">
               <h1 className="font-orelega text-black mb-5 text-center text-3xl">
                 Login
               </h1>
@@ -58,25 +49,11 @@ export const Login = ({
                   />
                 </div>
                 <div className="w-full mb-6">
-                  <p className="font-extrabold text-sm md:text-base mb-1">
-                    Password
-                  </p>
-                  <div className="flex items-center relative">
-                    <input
-                      type={isPasswordVisible ? "text" : "password"}
-                      name="password"
-                      placeholder="Masukkan Password"
-                      className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-[#fff7df] py-2 px-4 placeholder-[#340717]"
-                    />
-                    <button
-                      onClick={togglePasswordVisibility}
-                      className="absolute right-4"
-                    >
-                      {isPasswordVisible ? <Eye /> : <EyeOff />}
-                    </button>
-                  </div>
+                  <PasswordField />
                 </div>
-                <Button className="w-48 h-12 text-lg">Login</Button>
+                <Button className="w-48 h-12 text-lg" formAction={signInAction}>
+                  Login
+                </Button>
                 <p className="mt-2 font-poppins text-sm md:text-lg text-black">
                   Belum punya akun?{" "}
                   <span className="underline">
@@ -85,7 +62,7 @@ export const Login = ({
                   </span>
                 </p>
               </div>
-            </div>
+            </form>
             <div className="flex h-10 border-none justify-end bg-[#d9d9d9] p-3"></div>
           </Card>
           <div className="w-full h-16 md:h-20 absolute z-10 -bottom-8 md:-bottom-12">
