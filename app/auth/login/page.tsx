@@ -1,3 +1,9 @@
-import { Login } from "@/modules/login";
+import { Layout } from "@/components/elements/Layout";
+import { Login } from "@/modules/auth/login";
+import { signInAction } from "@/app/actions";
 
-export default Login;
+const Page = () => {
+  return <Login signInAction={signInAction} />;
+};
+
+export default Page;

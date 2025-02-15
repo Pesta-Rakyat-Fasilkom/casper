@@ -1,3 +1,9 @@
-import { Register } from "@/modules/register";
+import { Layout } from "@/components/elements/Layout";
+import { Register } from "@/modules/auth/register";
+import { signUpAction } from "@/app/actions";
 
-export default Register;
+const Page = () => {
+  return <Register signUpAction={signUpAction} />;
+};
+
+export default Page;

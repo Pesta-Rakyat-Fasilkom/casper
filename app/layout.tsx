@@ -14,11 +14,6 @@ export const metadata = {
   description: "PERAK 2025 - Pacil Ria Nostalgia",
 };
 
-const huskyStash = localFont({
-  src: "./husky-stash.otf",
-  variable: "--font-husky-stash",
-});
-
 const geistSans = Geist({
   display: "swap",
   variable: "--font-geist",
@@ -32,9 +27,14 @@ const orelegaOne = Orelega_One({
 });
 
 const poppins = Poppins({
-  weight: "400",
-  variable: "--poppins",
+  display: "swap",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
+const huskyStash = localFont({
+  src: "./husky-stash.otf",
+  variable: "--font-husky-stash",
 });
 
 export default function RootLayout({

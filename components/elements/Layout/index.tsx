@@ -2,13 +2,22 @@ import React from "react";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { Toaster } from "@/components/ui/toaster";
+import { createClient } from "@/utils/supabase/server";
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = async ({ children }: { children: React.ReactNode }) => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <Toaster />
-      <main className="w-full min-h-screen pt-[80px]">{children}</main>
+      <main className="w-full max-w-[1440px] mx-auto min-h-screen pt-[80px]">
+        {children}
+      </main>
       <Footer />
     </>
   );

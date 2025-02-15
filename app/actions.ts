@@ -1,48 +1,45 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { encodedRedirect } from "@/utils/utils";
+import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-
-export function encodedRedirect(
-  type: "error" | "success",
-  path: string,
-  message: string,
-) {
-  return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
-}
+import { profiles } from "@/lib/drizzle/schema";
+import { db } from "@/lib/drizzle/db";
+import { eq } from "drizzle-orm";
+import { adminAuthClient } from "@/utils/supabase/admin";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
-  const supabase = await createClient();
-  const origin = (await headers()).get("origin");
 
   if (!email || !password) {
     return encodedRedirect(
       "error",
-      "/sign-up",
+      "/auth/register",
       "Email and password are required",
     );
   }
 
-  const { error } = await supabase.auth.signUp({
+  const { error } = await adminAuthClient.createUser({
     email,
     password,
-    options: {
-      emailRedirectTo: `${origin}/auth/callback`,
+    user_metadata: {
+      username: formData.get("username") as string,
+      fullname: formData.get("fullname") as string,
+      line_id: formData.get("line_id") as string,
+      whatsapp_number: formData.get("whatsapp_number") as string,
+      elemen: "mahasiswa",
+      angkatan: "2019",
     },
+    email_confirm: true,
   });
 
   if (error) {
     console.error(error.code + " " + error.message);
-    return encodedRedirect("error", "/sign-up", error.message);
+    return encodedRedirect("error", "/auth/register", error.message);
   } else {
-    return encodedRedirect(
-      "success",
-      "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link.",
-    );
+    return encodedRedirect("success", "/auth/login", "Thanks for signing up!");
   }
 };
 
@@ -57,10 +54,10 @@ export const signInAction = async (formData: FormData) => {
   });
 
   if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
+    return encodedRedirect("error", "/auth/login", error.message);
   }
 
-  return redirect("/protected");
+  return redirect("/");
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
@@ -137,5 +134,31 @@ export const resetPasswordAction = async (formData: FormData) => {
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  return redirect("/sign-in");
+  return redirect("/auth/login");
+};
+
+export const currentUserAction = async () => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  console.log(user);
+
+  if (!user) {
+    return null;
+  }
+
+  const profile = await db.query.profiles.findFirst({
+    where: eq(profiles.user_id, user.id),
+  });
+
+  console.log(profile);
+
+  if (!profile) {
+    return null;
+  }
+
+  return { user, profile };
 };
