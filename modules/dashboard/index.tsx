@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
+import { Team } from "./interface";
 
 const Games = [
   "All Games",
@@ -123,49 +124,91 @@ const Navigation = {
   ],
 };
 
-interface Team {
-  id: string;
-  name: string;
-  status: string;
-  competition_id: string;
-  created_at: string;
-}
-
 export const Dashboard = () => {
   const supabase = createClient();
   const [teams, setTeams] = useState<Team[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState("All Games");
 
   useEffect(() => {
-    const fetchTeams = async () => {
+    const fetchTeamsAndMembers = async () => {
+      setLoading(true);
+
+      // Step 1: Get current user
       const {
         data: { user },
+        error: userError,
       } = await supabase.auth.getUser();
-      if (!user) return;
 
-      const { data, error } = await supabase
+      if (userError || !user) {
+        console.error("Error fetching user:", userError);
+        setLoading(false);
+        return;
+      }
+
+      // Step 2: Get the teams where the user is a member
+      const { data: memberTeams, error: memberError } = await supabase
+        .from("members")
+        .select("team_id")
+        .eq("profile_id", user.id);
+
+      if (memberError) {
+        console.error("Error fetching member teams:", memberError);
+        setLoading(false);
+        return;
+      }
+
+      const teamIds = memberTeams.map((member) => member.team_id);
+      if (teamIds.length === 0) {
+        setTeams([]); // User is not in any teams
+        setLoading(false);
+        return;
+      }
+
+      // Step 3: Fetch team details
+      const { data: teamsData, error: teamsError } = await supabase
         .from("teams")
         .select("id, name, status, competition_id, created_at")
-        .eq(
-          "id",
-          supabase.from("members").select("team_id").eq("profile_id", user.id)
-        );
+        .in("id", teamIds);
 
-      if (error) {
-        console.error("Error fetching teams:", error);
-      } else {
-        setTeams(data);
+      if (teamsError) {
+        console.error("Error fetching teams:", teamsError);
+        setLoading(false);
+        return;
       }
+
+      // Step 4: Fetch members for each team
+      const { data: membersData, error: membersError } = await supabase
+        .from("members")
+        .select(
+          "id, profile_id, team_id, role, in_game_name, is_captain, created_at"
+        )
+        .in("team_id", teamIds);
+
+      if (membersError) {
+        console.error("Error fetching members:", membersError);
+        setLoading(false);
+        return;
+      }
+
+      // Step 5: Merge members into their respective teams
+      const teamsWithMembers = teamsData.map((team) => ({
+        ...team,
+        members: membersData.filter((member) => member.team_id === team.id),
+      }));
+
+      setTeams(teamsWithMembers);
+      setLoading(false);
     };
 
-    fetchTeams();
+    fetchTeamsAndMembers();
     console.log(teams);
   }, []);
 
   // Filter games based on selection
-  const filteredGames = MyGames.filter((game) =>
-    selectedGame === "All Games" ? true : game.game === selectedGame
+  const filteredGames = teams.filter((game) =>
+    selectedGame === "All Games" ? true : game.competition_id === selectedGame
   );
 
   // Handler for game selection
@@ -217,10 +260,10 @@ export const Dashboard = () => {
                 <div key={idx}>
                   <Card className="relative bg-accents-yellow-4 border-2 border-black pt-2 px-4 pb-4">
                     <h1 className="text-6xl font-husky-stash text-text-dark-3">
-                      {game.team_name}
+                      {game.name}
                     </h1>
                     <h2 className="my-4 inline-block text-white font-semibold bg-accents-peach-1 px-2 rounded-sm">
-                      {game.game}
+                      {game.competition_id}
                     </h2>
                     <div className="grid md:max-lg:grid-cols-[1fr_12rem] xl:grid-cols-[1fr_12rem] gap-4">
                       <div>
@@ -245,7 +288,7 @@ export const Dashboard = () => {
                       className="my-4 !font-poppins"
                     >
                       <AccordionItem
-                        value={game.team_name}
+                        value={game.name}
                         className="bg-accents-yellow-5 hover:bg-[#fff1c7] border-text-dark-2"
                       >
                         <AccordionTrigger className="font-bold text-base md:text-xl">
@@ -256,14 +299,14 @@ export const Dashboard = () => {
                             {game.members.map((member, idx) => (
                               <li key={idx}>
                                 <div className="font-bold mb-1">
-                                  {member.username}{" "}
-                                  {member.role === "Leader" && (
+                                  {member.id}{" "}
+                                  {member.is_captain && (
                                     <span className="bg-accents-yellow-2 inline-block text-white rounded-sm px-2">
-                                      {member.role}
+                                      Leader
                                     </span>
                                   )}
                                 </div>
-                                {member.name}
+                                {member.id}
                               </li>
                             ))}
                           </ul>

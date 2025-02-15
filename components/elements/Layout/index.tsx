@@ -15,7 +15,7 @@ export const Layout = async ({ children }: { children: React.ReactNode }) => {
     <>
       <Navbar user={user} />
       <Toaster />
-      <main className="w-full max-w-[1440px] mx-auto min-h-screen pt-[80px]">
+      <main className="max-w-[1440px] w-full mx-auto min-h-screen pt-[80px]">
         {children}
       </main>
       <Footer />

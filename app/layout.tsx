@@ -1,7 +1,6 @@
 import { Geist, Orelega_One, Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import "@/.next/static/css/app/landing.css"
 import { cn } from "@/lib/utils";
 import { Layout } from "@/components/elements/Layout";
 
@@ -51,7 +50,7 @@ export default function RootLayout({
         geistSans.variable,
         orelegaOne.variable,
         poppins.variable,
-        "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]",
+        "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]"
       )}
       suppressHydrationWarning
     >
