@@ -65,6 +65,7 @@ export async function Profile({ params }: ProfileProps) {
           ></InputBox>
         </div>
       </div>
+      {/*
       <Link href={`/profile/${userId}/edit`}>
         <Button
           className="mt-4 bg-[#F62455] !rounded-xl  shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-poppins text-white !px-4 !py-7 font-bold z-10"
@@ -73,6 +74,7 @@ export async function Profile({ params }: ProfileProps) {
           Edit Profile
         </Button>
       </Link>
+      */}
     </>
   );
 }
