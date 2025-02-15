@@ -1,6 +1,7 @@
 import { Geist, Orelega_One, Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import "@/.next/static/css/app/landing.css"
 import { cn } from "@/lib/utils";
 import { Layout } from "@/components/elements/Layout";
 
