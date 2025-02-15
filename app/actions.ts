@@ -4,6 +4,9 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { profiles } from "@/lib/drizzle/schema";
+import { db } from "@/lib/drizzle/db";
+import { eq } from "drizzle-orm";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -23,12 +26,12 @@ export const signUpAction = async (formData: FormData) => {
     password,
     options: {
       data: {
-        username: "",
-        fullname: "",
-        line_id: "",
-        whatsapp_number: "",
-        elemen: "",
-        angkatan: "",
+        username: formData.get("username") as string,
+        fullname: formData.get("fullname") as string,
+        line_id: formData.get("line_id") as string,
+        whatsapp_number: formData.get("whatsapp_number") as string,
+        elemen: "mahasiswa",
+        angkatan: "2019",
       },
     },
   });
@@ -134,3 +137,27 @@ export const signOutAction = async () => {
   await supabase.auth.signOut();
   return redirect("/auth/login");
 };
+
+export const currentUserAction = async () => {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  console.log(user);
+
+  if (!user) {
+    return null;
+  }
+
+  const profile = await db.query.profiles.findFirst({
+    where: eq(profiles.id, user.id),
+  });
+
+  console.log(profile)
+
+  if (!profile) {
+    return null;
+  }
+
+  return { user, profile };
+}

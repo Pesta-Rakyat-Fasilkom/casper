@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { user } from "@/modules/profile/constant";
 import { maskPassword } from "@/lib/utils";
 import Link from "next/link";
+import { currentUserAction } from "@/app/actions";
 
 interface ProfileProps {
   params: Promise<{ userId: string }>;
@@ -9,7 +9,13 @@ interface ProfileProps {
 
 export async function Profile({ params }: ProfileProps) {
   const userId = (await params).userId;
-  const currUser = user;
+  const data = await currentUserAction();
+
+  if (!data) {
+    return <></>;
+  }
+
+  const { user, profile } = data;
 
   return (
     <>
@@ -17,30 +23,30 @@ export async function Profile({ params }: ProfileProps) {
         <InputBox
           name="username"
           label="Username / Nama Panggilan"
-          text={user.username}
+          text={profile?.username}
         ></InputBox>
         <InputBox
           name="email"
           label="Email"
-          text={user.email}
+          text={user.email ?? ""}
           isGray={true}
         ></InputBox>
         <InputBox
           name="Nama Lengkap"
           label="Nama Lengkap"
-          text={user.name}
+          text={profile.fullname ?? ""}
         ></InputBox>
         <div className="flex gap-2">
           <InputBox
             name="elemen"
             label="Jenis"
-            text="Alumni"
+            text={profile.angkatan ?? ""}
             size="xs"
           ></InputBox>
           <InputBox
             name="Angkatan"
             label="Angkatan"
-            text="Chronos - 2020"
+            text={profile.angkatan ?? ""}
             size="xs"
           ></InputBox>
         </div>
@@ -48,23 +54,16 @@ export async function Profile({ params }: ProfileProps) {
           <InputBox
             name="whatsapp"
             label="Whatsapp"
-            text={user.whatsapp}
+            text={profile.whatsapp_number ?? ""}
             size="xs"
           ></InputBox>
           <InputBox
             name="idLIne"
             label="ID Line"
-            text={user.idLIne}
+            text={profile.line_id ?? ""}
             size="xs"
           ></InputBox>
         </div>
-
-        <InputBox
-          name="Nama Lengkap"
-          label="Kata Sandi"
-          text={user.password}
-          isPassword={true}
-        ></InputBox>
       </div>
       <Link href={`/profile/${userId}/edit`}>
         <Button

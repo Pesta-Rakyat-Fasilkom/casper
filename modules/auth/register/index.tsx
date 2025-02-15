@@ -43,6 +43,28 @@ export const Register = ({
                   />
                 </div>
                 <div className="w-full mb-4">
+                  <p className="font-extrabold text-sm md:text-base mb-1">
+                    Username
+                  </p>
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Masukkan Username"
+                    className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-[#fff7df] py-2 px-4 placeholder-text-dark-3"
+                  />
+                </div>
+                <div className="w-full mb-4">
+                  <p className="font-extrabold text-sm md:text-base mb-1">
+                    Full Name
+                  </p>
+                  <input
+                    type="text"
+                    name="fullname"
+                    placeholder="Masukkan Full Name"
+                    className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-[#fff7df] py-2 px-4 placeholder-text-dark-3"
+                  />
+                </div>
+                <div className="w-full mb-4">
                   <PasswordField />
                 </div>
                 <RegistrationDropdowns />
@@ -54,6 +76,7 @@ export const Register = ({
                     <input
                       type="text"
                       placeholder="Masukkan ID Line"
+                      name="line_id"
                       className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-accents-yellow-5 py-2 px-4 placeholder-text-dark-3"
                     />
                   </div>
@@ -65,6 +88,7 @@ export const Register = ({
                   <div className="flex items-center relative">
                     <input
                       type="text"
+                      name="whatsapp_number"
                       placeholder="Masukkan No. WA"
                       className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-[#fff7df] py-2 px-4 placeholder-text-dark-3"
                     />
