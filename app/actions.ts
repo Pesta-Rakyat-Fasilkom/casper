@@ -21,6 +21,16 @@ export const signUpAction = async (formData: FormData) => {
   const { error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        username: "",
+        fullname: "",
+        line_id: "",
+        whatsapp_number: "",
+        elemen: "",
+        angkatan: "",
+      },
+    },
   });
 
   if (error) {

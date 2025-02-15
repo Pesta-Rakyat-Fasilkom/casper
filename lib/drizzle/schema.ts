@@ -58,13 +58,11 @@ export const users = authSchema.table("users", {
 });
 
 export const profiles = pgTable("profiles", {
-  id: uuid("id").primaryKey(),
   user_id: uuid("user_id")
     .references(() => users.id)
-    .notNull(),
+    .primaryKey(),
   username: varchar("username", { length: 255 }).notNull().unique(),
   fullname: varchar("fullname", { length: 255 }),
-  email: text("email").unique(),
   line_id: text("line_id").unique(),
   whatsapp_number: text("whatsapp_number").unique(),
   elemen: elemenEnum(),
