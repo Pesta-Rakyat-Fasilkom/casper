@@ -9,7 +9,7 @@ export const PasswordField = () => {
   };
   return (
     <>
-      <p className="font-extrabold text-sm md:text-base mb-1">Buat Password</p>
+      <p className="font-extrabold text-sm md:text-base mb-1">Password</p>
       <div className="flex items-center relative">
         <input
           type={isPasswordVisible ? "text" : "password"}
