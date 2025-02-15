@@ -59,7 +59,9 @@ export const users = authSchema.table("users", {
 
 export const profiles = pgTable("profiles", {
   user_id: uuid("user_id")
-    .references(() => users.id)
+    .references(() => users.id, {
+      onDelete: "cascade",
+    })
     .primaryKey(),
   username: varchar("username", { length: 255 }).notNull().unique(),
   fullname: varchar("fullname", { length: 255 }),
@@ -113,7 +115,7 @@ export const teams = pgTable("teams", {
 export const members = pgTable("members", {
   id: uuid("id").primaryKey(),
   team_id: uuid("team_id").references(() => teams.id, { onDelete: "cascade" }),
-  profile_id: uuid("profile_id").references(() => profiles.id, {
+  profile_id: uuid("profile_id").references(() => profiles.user_id, {
     onDelete: "cascade",
   }),
   role: varchar("role", { length: 255 }),
