@@ -10,7 +10,8 @@ import {
   AccordionTrigger,
   AccordionItem,
 } from "@/components/ui/accordion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 
 const Games = [
   "All Games",
@@ -122,13 +123,49 @@ const Navigation = {
   ],
 };
 
+interface Team {
+  id: string;
+  name: string;
+  status: string;
+  competition_id: string;
+  created_at: string;
+}
+
 export const Dashboard = () => {
+  const supabase = createClient();
+  const [teams, setTeams] = useState<Team[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState("All Games");
 
+  useEffect(() => {
+    const fetchTeams = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from("teams")
+        .select("id, name, status, competition_id, created_at")
+        .eq(
+          "id",
+          supabase.from("members").select("team_id").eq("profile_id", user.id)
+        );
+
+      if (error) {
+        console.error("Error fetching teams:", error);
+      } else {
+        setTeams(data);
+      }
+    };
+
+    fetchTeams();
+    console.log(teams);
+  }, []);
+
   // Filter games based on selection
   const filteredGames = MyGames.filter((game) =>
-    selectedGame === "All Games" ? true : game.game === selectedGame,
+    selectedGame === "All Games" ? true : game.game === selectedGame
   );
 
   // Handler for game selection
