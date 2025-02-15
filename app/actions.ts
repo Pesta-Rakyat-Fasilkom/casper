@@ -7,11 +7,11 @@ import { redirect } from "next/navigation";
 import { profiles } from "@/lib/drizzle/schema";
 import { db } from "@/lib/drizzle/db";
 import { eq } from "drizzle-orm";
+import { adminAuthClient } from "@/utils/supabase/admin";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
-  const supabase = await createClient();
 
   if (!email || !password) {
     return encodedRedirect(
@@ -21,18 +21,16 @@ export const signUpAction = async (formData: FormData) => {
     );
   }
 
-  const { error } = await supabase.auth.signUp({
+  const { error } = await adminAuthClient.createUser({
     email,
     password,
-    options: {
-      data: {
-        username: formData.get("username") as string,
-        fullname: formData.get("fullname") as string,
-        line_id: formData.get("line_id") as string,
-        whatsapp_number: formData.get("whatsapp_number") as string,
-        elemen: "mahasiswa",
-        angkatan: "2019",
-      },
+    user_metadata: {
+      username: formData.get("username") as string,
+      fullname: formData.get("fullname") as string,
+      line_id: formData.get("line_id") as string,
+      whatsapp_number: formData.get("whatsapp_number") as string,
+      elemen: "mahasiswa",
+      angkatan: "2019",
     },
   });
 
@@ -141,7 +139,9 @@ export const signOutAction = async () => {
 export const currentUserAction = async () => {
   const supabase = await createClient();
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   console.log(user);
 
@@ -153,11 +153,11 @@ export const currentUserAction = async () => {
     where: eq(profiles.user_id, user.id),
   });
 
-  console.log(profile)
+  console.log(profile);
 
   if (!profile) {
     return null;
   }
 
   return { user, profile };
-}
+};
