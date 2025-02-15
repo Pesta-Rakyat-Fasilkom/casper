@@ -40,7 +40,7 @@ export async function Profile({ params }: ProfileProps) {
           <InputBox
             name="elemen"
             label="Jenis"
-            text={profile.angkatan ?? ""}
+            text={profile.elemen ?? ""}
             size="xs"
           ></InputBox>
           <InputBox

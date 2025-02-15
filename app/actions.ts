@@ -150,7 +150,7 @@ export const currentUserAction = async () => {
   }
 
   const profile = await db.query.profiles.findFirst({
-    where: eq(profiles.id, user.id),
+    where: eq(profiles.user_id, user.id),
   });
 
   console.log(profile)
