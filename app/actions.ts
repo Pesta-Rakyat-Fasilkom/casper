@@ -32,6 +32,7 @@ export const signUpAction = async (formData: FormData) => {
       elemen: "mahasiswa",
       angkatan: "2019",
     },
+    email_confirm: true,
   });
 
   if (error) {
