@@ -65,7 +65,6 @@ export const Login = ({
                   </SubmitButton>
                   <FormMessage message={searchParams} />
                 </div>
-
                 <p className="mt-2 font-poppins text-sm md:text-lg text-black">
                   Belum punya akun?{" "}
                   <span className="underline">

@@ -49,8 +49,8 @@ export default function RootLayout({
         huskyStash.variable,
         geistSans.variable,
         orelegaOne.variable,
-        poppins.variable,
-        "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]",
+        // poppins.variable,
+        "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]"
       )}
       suppressHydrationWarning
     >
