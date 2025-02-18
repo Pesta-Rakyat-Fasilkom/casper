@@ -15,7 +15,7 @@ export const signUpAction = async (formData: FormData) => {
 
   if (!email || !password) {
     return encodedRedirect("/auth/register", [
-      { key: "error", value: "Email and password are required" },
+      { key: "toastError", value: "Email dan kata sandi harus diisi." },
     ]);
   }
 
@@ -34,13 +34,15 @@ export const signUpAction = async (formData: FormData) => {
   });
 
   if (error) {
-    console.error(error.code + " " + error.message);
     return encodedRedirect("/auth/register", [
-      { key: "error", value: error.message },
+      { key: "toastError", value: "Kesalahan: " + error.message },
     ]);
   } else {
     return encodedRedirect("/auth/login", [
-      { key: "success", value: "Thanks for signing up!" },
+      {
+        key: "toastSuccess",
+        value: "Terima kasih telah mendaftar! Silakan masuk.",
+      },
     ]);
   }
 };
@@ -57,12 +59,12 @@ export const signInAction = async (formData: FormData) => {
 
   if (error) {
     return encodedRedirect("/auth/login", [
-      { key: "toastError", value: error.message },
+      { key: "toastError", value: "Kesalahan: " + error.message },
     ]);
   }
 
   return encodedRedirect("/", [
-    { key: "toastSuccess", value: "Successfully logged in." },
+    { key: "toastSuccess", value: "Berhasil masuk!" },
   ]);
 };
 
@@ -74,7 +76,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
 
   if (!email) {
     return encodedRedirect("/forgot-password", [
-      { key: "error", value: "Email is required" },
+      { key: "error", value: "Email wajib diisi." },
     ]);
   }
 
@@ -85,7 +87,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   if (error) {
     console.error(error.message);
     return encodedRedirect("/forgot-password", [
-      { key: "error", value: "Could not reset password" },
+      { key: "error", value: "Gagal mengatur ulang kata sandi." },
     ]);
   }
 
@@ -96,7 +98,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   return encodedRedirect("/forgot-password", [
     {
       key: "success",
-      value: "Check your email for a link to reset your password.",
+      value: "Periksa email Anda untuk tautan mengatur ulang kata sandi.",
     },
   ]);
 };
@@ -109,13 +111,16 @@ export const resetPasswordAction = async (formData: FormData) => {
 
   if (!password || !confirmPassword) {
     return encodedRedirect("/protected/reset-password", [
-      { key: "error", value: "Password and confirm password are required" },
+      {
+        key: "error",
+        value: "Kata sandi dan konfirmasi kata sandi wajib diisi.",
+      },
     ]);
   }
 
   if (password !== confirmPassword) {
     return encodedRedirect("/protected/reset-password", [
-      { key: "error", value: "Passwords do not match" },
+      { key: "error", value: "Kata sandi tidak cocok." },
     ]);
   }
 
@@ -125,19 +130,21 @@ export const resetPasswordAction = async (formData: FormData) => {
 
   if (error) {
     return encodedRedirect("/protected/reset-password", [
-      { key: "error", value: "Password update failed" },
+      { key: "error", value: "Gagal memperbarui kata sandi." },
     ]);
   }
 
   return encodedRedirect("/protected/reset-password", [
-    { key: "success", value: "Password updated" },
+    { key: "success", value: "Kata sandi berhasil diperbarui." },
   ]);
 };
 
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  return redirect("/auth/login");
+  return encodedRedirect("/auth/login", [
+    { key: "toastSuccess", value: "Berhasil keluar." },
+  ]);
 };
 
 export const currentUserAction = async () => {

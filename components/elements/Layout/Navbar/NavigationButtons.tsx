@@ -12,6 +12,7 @@ import React from "react";
 import { NavItems, NavLink } from "./interface";
 import { cn } from "@/lib/utils";
 import { signOutAction } from "@/app/actions";
+import { LogoutButton } from "./LogoutButton";
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   if (label === "Keluar") {
@@ -25,8 +26,7 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
           `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
         )}
       >
-        {icon}
-        <button type="submit">{label}</button>
+        <LogoutButton icon={icon} />
       </form>
     );
   }
