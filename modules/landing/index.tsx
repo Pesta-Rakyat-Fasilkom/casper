@@ -28,8 +28,8 @@ import {
 
 export const Landing = () => {
   return (
-    <div className="mainContainer flex flex-col justify-center items-center bg-[#f8dbe9] overflow-hidden ">
-      <div className="container1 w-screen h-[750px] sm:h-[900px] relative">
+    <div className="mainContainer flex flex-col justify-center items-center bg-[#f8dbe9] overflow-hidden relative">
+      <div className="container1 w-full h-[750px] sm:h-[900px] relative">
         <div className="relative w-full h-full flex flex-col justify-start items-center py-36 ">
           <div className="z-40 w-fit h-fit relative ">
             <Image
@@ -54,7 +54,7 @@ export const Landing = () => {
             />
           </div>
 
-          <div className="z-20 relative flex w-screen justify-center items-center h-fit py">
+          <div className="z-20 relative flex w-full justify-center items-center h-fit py">
             <div className="flex flex-col max-w-[700px] sm:w-[80%] relative ">
               <Image
                 src={ltlStar}
@@ -116,11 +116,11 @@ export const Landing = () => {
         </div>
       </div>
 
-      <div className="container2 relative w-screen h-[900px] sm:h-[1024px] bg-[#FFE1F9] flex flex-col justify-center items-center gap-8 pb-24 overflow-hidden">
+      <div className="container2 relative w-full h-[900px] sm:h-[1024px] bg-[#FFE1F9] flex flex-col justify-center items-center gap-8 pb-24 overflow-hidden">
         <Image
           src={union}
           alt="union_object"
-          className="w-screen z-10 hidden sm:block"
+          className="w-full z-10 hidden sm:block"
         />
 
         <div className=" doddle_container w-full h-[520px] absolute top-0  hidden sm:flex -z-0 ">
@@ -187,7 +187,7 @@ export const Landing = () => {
             </h1>
           </div>
 
-          <div className=" relative  row-span-2 w-full h-full hidden lg:flex">
+          <div className="relative row-span-2 w-full h-full hidden lg:flex">
             <Image
               src={rectangleLeague}
               alt="logo_perak"
@@ -231,7 +231,7 @@ export const Landing = () => {
       </div>
 
       <div
-        className="container3 relative w-screen h-[700px] sm:h-[800px] bg-[#F4F1FF] pt-32 overflow-hidden"
+        className="container3 relative w-full h-[700px] sm:h-[800px] bg-[#F4F1FF] pt-32 overflow-hidden"
         style={{
           backgroundImage: `url(${spottedBg.src})`,
           backgroundSize: "100% auto",
@@ -239,7 +239,7 @@ export const Landing = () => {
           backgroundPosition: "top",
         }}
       >
-        <div className="w-screen h-fit flex flex-col justify-center items-center z-10 ">
+        <div className="w-full h-fit flex flex-col justify-center items-center z-10 ">
           <div className="z-40 relative">
             <Image
               src={FaqTitle}
@@ -247,31 +247,6 @@ export const Landing = () => {
               className=" z-10 w-[350px] sm:w-[450px]"
             />
           </div>
-        </div>
-
-        <div className=" w-[90%] mx-auto z-50">
-          <Accordion
-            type="single"
-            collapsible
-            className="z-50 w-full flex flex-col gap-5 -mt-4"
-          >
-            <AccordionItem value="item-1" className="z-40">
-              <AccordionTrigger>Judul Item 1</AccordionTrigger>
-              <AccordionContent>Konten untuk Item 1</AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2" className="z-40">
-              <AccordionTrigger>Judul Item 2</AccordionTrigger>
-              <AccordionContent>Konten untuk Item 2</AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3" className="z-40">
-              <AccordionTrigger>Judul Item 3</AccordionTrigger>
-              <AccordionContent>Konten untuk Item 3</AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-4" className="z-40">
-              <AccordionTrigger>Judul Item 4</AccordionTrigger>
-              <AccordionContent>Konten untuk Item 4</AccordionContent>
-            </AccordionItem>
-          </Accordion>
         </div>
 
         <Image
@@ -294,6 +269,31 @@ export const Landing = () => {
           className="z-10 absolute -bottom-36 -left-32 h-full aspect-auto rotate-45 opacity-60 hidden sm:block"
           loading="lazy"
         />
+      </div>
+
+      <div className="mt-[-26rem] pb-6 bottom-6 w-[90%] mx-auto z-50">
+        <Accordion
+          type="single"
+          collapsible
+          className="z-50 w-full flex flex-col gap-5 -mt-4"
+        >
+          <AccordionItem value="item-1" className="z-40">
+            <AccordionTrigger>Judul Item 1</AccordionTrigger>
+            <AccordionContent>Konten untuk Item 1</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2" className="z-40">
+            <AccordionTrigger>Judul Item 2</AccordionTrigger>
+            <AccordionContent>Konten untuk Item 2</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3" className="z-40">
+            <AccordionTrigger>Judul Item 3</AccordionTrigger>
+            <AccordionContent>Konten untuk Item 3</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4" className="z-40">
+            <AccordionTrigger>Judul Item 4</AccordionTrigger>
+            <AccordionContent>Konten untuk Item 4</AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </div>
   );
