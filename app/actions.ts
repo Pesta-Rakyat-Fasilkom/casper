@@ -57,7 +57,7 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/auth/login", error.message);
   }
 
-  return redirect("/");
+  return encodedRedirect("toastSuccess", "/", "Successfully logged in.");
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
