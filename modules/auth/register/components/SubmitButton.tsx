@@ -21,6 +21,7 @@ export function SubmitButton({
     <Button
       type="submit"
       aria-disabled={pending}
+      disabled={pending}
       {...props}
       onClick={() => {
         toast({
