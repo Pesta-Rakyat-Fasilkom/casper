@@ -16,8 +16,16 @@ let NavbarLinks: (NavLink | NavDropdown)[] = [
     className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
   },
   {
+    href: "/auth/login",
+    label: "Masuk",
+    authenticated: false,
+    variant: "primary",
+    className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
+  },
+  {
     href: "/dashboard",
     label: "Dashboard",
+    authenticated: true,
     icon: <Computer />,
     className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
   },
@@ -25,16 +33,19 @@ let NavbarLinks: (NavLink | NavDropdown)[] = [
     href: "#",
     label: "Username",
     icon: <User2 />,
+    authenticated: true,
     children: [
       {
         href: "#",
         label: "Edit Profile",
         icon: <Pen />,
+        authenticated: true,
         className: "hover:bg-[#FF9900] hover:text-text-light-3",
       },
       {
         href: "/auth/logout",
         label: "Keluar",
+        authenticated: true,
         icon: <DoorOpen />,
         className:
           "hover:bg-accents-red-1 hover:text-text-light-3 font-bold text-accents-red-1",
@@ -78,6 +89,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
             <NavigationButtons
               className="hidden min-[1130px]:flex"
               navbarLinks={updatedNavbarLinks} // Use the updated array
+              user={user}
             />
             <NavigationMobile
               className="flex min-[1130px]:hidden"
