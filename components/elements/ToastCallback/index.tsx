@@ -15,8 +15,8 @@ const ToastCallback = () => {
       });
     } else if (searchParams.has("toastWarning")) {
       toast({
-        variant: "error",
-        title: "Error",
+        variant: "warning",
+        title: "Warning",
         description: searchParams.get("toastWarning"),
       });
     } else if (searchParams.has("toastError")) {
