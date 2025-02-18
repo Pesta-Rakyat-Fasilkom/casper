@@ -28,6 +28,7 @@ const orelegaOne = Orelega_One({
 
 const poppins = Poppins({
   display: "swap",
+  variable: "--poppins",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
 });
@@ -49,7 +50,7 @@ export default function RootLayout({
         huskyStash.variable,
         geistSans.variable,
         orelegaOne.variable,
-        // poppins.variable,
+        poppins.variable,
         "bg-[#ff9eeb] bg-[url(/doodle-pink-1.png)] text-[#8a0e2d]"
       )}
       suppressHydrationWarning
