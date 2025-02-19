@@ -3,7 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { NavigationButtons } from "./NavigationButtons";
 import { NavDropdown, NavLink } from "./interface";
-import { Computer, DoorOpen, House, Pen, User2 } from "lucide-react";
+import {
+  Computer,
+  DoorClosed,
+  DoorOpen,
+  House,
+  Pen,
+  User2,
+} from "lucide-react";
 import { NavigationMobile } from "./NavigationMobile";
 import { User } from "@supabase/supabase-js";
 import { usePathname } from "next/navigation";
@@ -18,9 +25,11 @@ let NavbarLinks: (NavLink | NavDropdown)[] = [
   {
     href: "/auth/login",
     label: "Masuk",
+    icon: <DoorClosed />,
     authenticated: false,
     variant: "primary",
-    className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
+    className:
+      "hover:bg-accents-red-1 hover:text-text-light-3 hover:text-text-light-3 text-text-dark-1",
   },
   {
     href: "/dashboard",
@@ -94,6 +103,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
             <NavigationMobile
               className="flex min-[1130px]:hidden"
               navbarLinks={updatedNavbarLinks} // Use the updated array
+              user={user}
             />
           </div>
         </div>
