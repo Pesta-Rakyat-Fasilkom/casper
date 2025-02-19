@@ -7,7 +7,6 @@ import { Twitter } from "@/components/icons/Twitter";
 import { generateTextOutline } from "@/components/utils/textOutline";
 import { usePathname } from "next/navigation";
 
-// TODO: fix outline and typography
 export const Footer: React.FC = () => {
   const pathname = usePathname();
   if (pathname.includes("/dashboard")) return;
@@ -66,13 +65,13 @@ export const Footer: React.FC = () => {
           </p>
           <div className="flex flex-row gap-3">
             <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-              <Instagram size="w-8 h-8" fill="fill-current" />
+              <Instagram size="w-8 h-8" fill="fill-text-dark-2" />
             </a>
             <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer">
-              <Youtube size="w-8 h-8" fill="fill-current" />
+              <Youtube size="w-8 h-8" fill="fill-text-dark-2" />
             </a>
             <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer">
-              <Twitter size="w-8 h-8" fill="fill-current" />
+              <Twitter size="w-8 h-8" fill="fill-text-dark-2" />
             </a>
           </div>
         </div>

@@ -18,8 +18,11 @@ import {
   DialogDescription,
   DialogContent,
 } from "@/components/ui/dialog";
+import { useToast } from "@/components/hooks/use-toast";
 
 export const Recruitment = () => {
+  const { toast } = useToast();
+
   return (
     <div className="mx-auto px-4 my-12 max-w-5xl flex flex-col gap-12">
       <h1 className="text-4xl text-center">

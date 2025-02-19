@@ -50,7 +50,7 @@ const navigationMenuTriggerStyle = cva(
         primary:
           "bg-button-primary text-text-light-3 hover:bg-[#F93462] rounded-xl hover:shadow-lg active:bg-accents-red-3 disabled:bg-[#B1B1B1] disabled:text-[#8B8B8B]",
         secondary:
-          "bg-button-secondary text-text-light-3 hover:bg-[#B3D155] rounded-xl hover:shadow-lg active:bg-accents-green-3 disabled:bg-[#B1B1B1] disabled:text-[#8B8B8B]",
+          "bg-button-secondary text-text-dark-1 hover:bg-[#B3D155] rounded-xl hover:shadow-lg active:bg-accents-green-3 disabled:bg-[#B1B1B1] disabled:text-[#8B8B8B]",
         ghost:
           "border-2 border-button-primary text-white hover:border-[#F93462] rounded-xl active:border-accents-red-3 disabled:border-[#B1B1B1] disabled:text-[#8B8B8B]",
         tertiary:

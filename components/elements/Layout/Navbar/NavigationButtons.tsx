@@ -12,6 +12,8 @@ import React from "react";
 import { NavItems, NavLink } from "./interface";
 import { cn } from "@/lib/utils";
 import { signOutAction } from "@/app/actions";
+import { LogoutButton } from "./LogoutButton";
+import { User } from "@supabase/supabase-js";
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   if (label === "Keluar") {
@@ -25,8 +27,7 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
           `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
         )}
       >
-        {icon}
-        <button type="submit">{label}</button>
+        <LogoutButton icon={icon} />
       </form>
     );
   }
@@ -49,14 +50,22 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
 export const NavigationButtons = ({
   navbarLinks,
   className,
+  user,
 }: {
   navbarLinks: NavItems;
   className?: string;
+  user: User | null;
 }) => {
   return (
     <NavigationMenu className={className}>
-      <NavigationMenuList className="*:min-w-32 gap-3">
+      <NavigationMenuList className="gap-3">
         {navbarLinks.map((link) => {
+          if (
+            link.authenticated != null &&
+            ((link.authenticated && !user) || (!link.authenticated && user))
+          ) {
+            return null;
+          }
           if ("children" in link) {
             return (
               <NavigationMenuItem key={link.label}>
@@ -66,15 +75,20 @@ export const NavigationButtons = ({
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="min-w-32 bg-button-secondary rounded-sm p-2">
-                    {link.children.map((child) => (
-                      <DropdownItem
-                        key={child.label}
-                        label={child.label}
-                        href={child.href}
-                        icon={child.icon}
-                        className={child.className}
-                      />
-                    ))}
+                    {link.children.map((child) => {
+                      if (child.authenticated && !user) {
+                        return null;
+                      }
+                      return (
+                        <DropdownItem
+                          key={child.label}
+                          label={child.label}
+                          href={child.href}
+                          icon={child.icon}
+                          className={child.className}
+                        />
+                      );
+                    })}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -87,9 +101,9 @@ export const NavigationButtons = ({
                   className={cn(
                     navigationMenuTriggerStyle({
                       // Feel free to change this according to the design needs
-                      variant: "secondary",
+                      variant: link.variant ?? "secondary",
                     }),
-                    "text-text-dark-1",
+                    "min-w-32",
                   )}
                 >
                   {link.icon}
