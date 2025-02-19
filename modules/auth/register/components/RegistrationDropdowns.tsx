@@ -20,6 +20,7 @@ export const RegistrationDropdowns = () => {
 
   return (
     <div className="w-full grid grid-cols-2 gap-2 mb-4">
+      <input type="hidden" name="elemen" value={elementValue} />
       <div className="w-full">
         <p className="font-extrabold text-sm md:text-base mb-1">Elemen</p>
         <DropdownComponent
@@ -30,6 +31,7 @@ export const RegistrationDropdowns = () => {
           items={elementItems}
         />
       </div>
+      <input type="hidden" name="angkatan" value={angkatanValue} />
       <div className="w-full">
         <p className="font-extrabold text-sm md:text-base mb-1">Angkatan</p>
         <DropdownComponent

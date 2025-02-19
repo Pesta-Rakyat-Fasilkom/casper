@@ -182,7 +182,7 @@ export const Dashboard = () => {
       const { data: membersData, error: membersError } = await supabase
         .from("members")
         .select(
-          "id, profile_id, team_id, role, in_game_name, is_captain, created_at"
+          "id, profile_id, team_id, role, in_game_name, is_captain, created_at",
         )
         .in("team_id", teamIds);
 
@@ -208,7 +208,7 @@ export const Dashboard = () => {
 
   // Filter games based on selection
   const filteredGames = teams.filter((game) =>
-    selectedGame === "All Games" ? true : game.competition_id === selectedGame
+    selectedGame === "All Games" ? true : game.competition_id === selectedGame,
   );
 
   // Handler for game selection

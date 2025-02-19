@@ -6,6 +6,7 @@ import { NavItems, NavLink } from "./interface";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { User } from "@supabase/supabase-js";
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   return (
@@ -15,20 +16,32 @@ const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
         navigationMenuTriggerStyle({
           variant: "secondary",
         }),
-        `text-text-dark-1 rounded-sm justify-start ${className}`
+        `min-w-40 rounded-sm justify-end ${className}`,
       )}
     >
-      {icon}
       <span>{label}</span>
+      {icon}
     </Link>
   );
 };
 
-const MenuMobile = ({ navbarLinks }: { navbarLinks: NavItems }) => {
+const MenuMobile = ({
+  navbarLinks,
+  user,
+}: {
+  navbarLinks: NavItems;
+  user: User | null;
+}) => {
   return (
     <div className="absolute top-24 right-[5%] bg-[#FFFFFF] dark:bg-[#101617]">
       <ul className="bg-button-secondary rounded-sm p-2 flex flex-col ">
         {navbarLinks.map((link) => {
+          if (
+            link.authenticated != null &&
+            ((link.authenticated && !user) || (!link.authenticated && user))
+          ) {
+            return null;
+          }
           if ("children" in link) {
             return link.children.map((child) => (
               <DropdownItem
@@ -71,9 +84,11 @@ const Overlay = ({
 export const NavigationMobile = ({
   navbarLinks,
   className,
+  user,
 }: {
   navbarLinks: NavItems;
   className?: string;
+  user: User | null;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -93,7 +108,7 @@ export const NavigationMobile = ({
           />
         )}
       </button>
-      {isOpen && <MenuMobile navbarLinks={navbarLinks} />}
+      {isOpen && <MenuMobile navbarLinks={navbarLinks} user={user} />}
       {isOpen && <Overlay setIsOpen={setIsOpen} />}
     </div>
   );

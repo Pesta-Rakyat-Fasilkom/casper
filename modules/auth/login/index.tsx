@@ -1,14 +1,18 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import SpinningDisk from "@/components/elements/SpinningDisk";
 import { PasswordField } from "../register/components/PasswordField";
+import { SubmitButton } from "../register/components/SubmitButton";
+import { Message } from "@/components/elements/FormMessage/interface";
+import { FormMessage } from "@/components/elements/FormMessage/FormMessage";
 
 export const Login = ({
   signInAction,
+  searchParams,
 }: {
   signInAction: (formData: FormData) => Promise<never>;
+  searchParams: Message;
 }) => {
   return (
     <div className="w-full grid max-md:grid-rows-[2fr_3fr] md:grid-cols-2 items-center justify-center min-h-view-screen px-4 pt-12 pb-32">
@@ -51,9 +55,16 @@ export const Login = ({
                 <div className="w-full mb-6">
                   <PasswordField />
                 </div>
-                <Button className="w-48 h-12 text-lg" formAction={signInAction}>
-                  Login
-                </Button>
+                <div className="flex flex-col items-center gap-2 w-full">
+                  <SubmitButton
+                    formAction={signInAction}
+                    className="w-48 h-12 text-lg"
+                    pendingText="Logging in..."
+                  >
+                    Login
+                  </SubmitButton>
+                  <FormMessage message={searchParams} />
+                </div>
                 <p className="mt-2 font-poppins text-sm md:text-lg text-black">
                   Belum punya akun?{" "}
                   <span className="underline">

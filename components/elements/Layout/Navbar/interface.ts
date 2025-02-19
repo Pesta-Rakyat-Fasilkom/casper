@@ -5,6 +5,8 @@ export interface NavLink {
   label: string;
   className?: string;
   icon?: JSX.Element;
+  authenticated?: boolean | null;
+  variant?: "primary" | "secondary" | "tertiary" | "ghost" | "link";
 }
 
 export interface NavDropdown extends NavLink {

@@ -2,11 +2,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NavigationButtons } from "./NavigationButtons";
-import { NavDropdown, NavLink } from "./interface";
-import { Computer, DoorOpen, House, Pen, User2 } from "lucide-react";
+import { NavDropdown, NavItems, NavLink } from "./interface";
+import {
+  Computer,
+  DoorClosed,
+  DoorOpen,
+  House,
+  Pen,
+  User2,
+} from "lucide-react";
 import { NavigationMobile } from "./NavigationMobile";
 import { User } from "@supabase/supabase-js";
 import { usePathname } from "next/navigation";
+import { profiles } from "@/lib/drizzle/schema";
 
 let NavbarLinks: (NavLink | NavDropdown)[] = [
   {
@@ -16,8 +24,18 @@ let NavbarLinks: (NavLink | NavDropdown)[] = [
     className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
   },
   {
+    href: "/auth/login",
+    label: "Masuk",
+    icon: <DoorClosed />,
+    authenticated: false,
+    variant: "primary",
+    className:
+      "hover:bg-accents-red-1 hover:text-text-light-3 hover:text-text-light-3 text-text-dark-1",
+  },
+  {
     href: "/dashboard",
     label: "Dashboard",
+    authenticated: true,
     icon: <Computer />,
     className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
   },
@@ -25,16 +43,19 @@ let NavbarLinks: (NavLink | NavDropdown)[] = [
     href: "#",
     label: "Username",
     icon: <User2 />,
+    authenticated: true,
     children: [
       {
         href: "#",
         label: "Edit Profile",
         icon: <Pen />,
+        authenticated: true,
         className: "hover:bg-[#FF9900] hover:text-text-light-3",
       },
       {
         href: "/auth/logout",
         label: "Keluar",
+        authenticated: true,
         icon: <DoorOpen />,
         className:
           "hover:bg-accents-red-1 hover:text-text-light-3 font-bold text-accents-red-1",
@@ -43,13 +64,19 @@ let NavbarLinks: (NavLink | NavDropdown)[] = [
   },
 ];
 
-export const Navbar = ({ user }: { user: User | null }) => {
+export const Navbar = ({
+  user,
+  profile,
+}: {
+  user: User | null;
+  profile: typeof profiles.$inferSelect | null;
+}) => {
   const pathname = usePathname();
   if (pathname.includes("/dashboard")) return;
 
-  const updatedNavbarLinks = NavbarLinks.map((link) => {
+  const updatedNavbarLinks: NavItems = NavbarLinks.map((link) => {
     if (link.label === "Username" && user) {
-      return { ...link, label: user.email as string };
+      return { ...link, label: profile?.username as string };
     }
     return link;
   });
@@ -78,10 +105,12 @@ export const Navbar = ({ user }: { user: User | null }) => {
             <NavigationButtons
               className="hidden min-[1130px]:flex"
               navbarLinks={updatedNavbarLinks} // Use the updated array
+              user={user}
             />
             <NavigationMobile
               className="flex min-[1130px]:hidden"
               navbarLinks={updatedNavbarLinks} // Use the updated array
+              user={user}
             />
           </div>
         </div>

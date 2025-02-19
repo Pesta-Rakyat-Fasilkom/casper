@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import SpinningDisk from "@/components/elements/SpinningDisk";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,10 +6,15 @@ import Link from "next/link";
 import * as React from "react";
 import { RegistrationDropdowns } from "./components/RegistrationDropdowns";
 import { PasswordField } from "./components/PasswordField";
+import { SubmitButton } from "./components/SubmitButton";
+import { FormMessage } from "@/components/elements/FormMessage/FormMessage";
+import { Message } from "@/components/elements/FormMessage/interface";
 export const Register = ({
   signUpAction,
+  searchParams,
 }: {
   signUpAction: (formData: FormData) => Promise<never>;
+  searchParams: Message;
 }) => {
   return (
     <div className="w-full grid max-md:grid-rows-[2fr_3fr] md:grid-cols-2 items-center justify-center min-h-view-screen px-4 pt-12 pb-32">
@@ -94,13 +98,16 @@ export const Register = ({
                     />
                   </div>
                 </div>
-                <Button
-                  type="submit"
-                  formAction={signUpAction}
-                  className="w-48 h-12 text-lg"
-                >
-                  Register
-                </Button>
+                <div className="flex flex-col items-center gap-2 w-full">
+                  <SubmitButton
+                    formAction={signUpAction}
+                    className="w-48 h-12 text-lg"
+                    pendingText="Registering..."
+                  >
+                    Register
+                  </SubmitButton>
+                  <FormMessage message={searchParams} />
+                </div>
                 <p className="mt-2 font-poppins text-sm md:text-lg text-black">
                   Sudah punya akun?{" "}
                   <span className="underline">
