@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NavigationButtons } from "./NavigationButtons";
-import { NavDropdown, NavLink } from "./interface";
+import { NavDropdown, NavItems, NavLink } from "./interface";
 import {
   Computer,
   DoorClosed,
@@ -14,6 +14,7 @@ import {
 import { NavigationMobile } from "./NavigationMobile";
 import { User } from "@supabase/supabase-js";
 import { usePathname } from "next/navigation";
+import { profiles } from "@/lib/drizzle/schema";
 
 let NavbarLinks: (NavLink | NavDropdown)[] = [
   {
@@ -63,13 +64,19 @@ let NavbarLinks: (NavLink | NavDropdown)[] = [
   },
 ];
 
-export const Navbar = ({ user }: { user: User | null }) => {
+export const Navbar = ({
+  user,
+  profile,
+}: {
+  user: User | null;
+  profile: typeof profiles.$inferSelect | null;
+}) => {
   const pathname = usePathname();
   if (pathname.includes("/dashboard")) return;
 
-  const updatedNavbarLinks = NavbarLinks.map((link) => {
+  const updatedNavbarLinks: NavItems = NavbarLinks.map((link) => {
     if (link.label === "Username" && user) {
-      return { ...link, label: user.email as string };
+      return { ...link, label: profile?.username as string };
     }
     return link;
   });
