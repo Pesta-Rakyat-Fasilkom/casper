@@ -19,6 +19,12 @@ export const signUpAction = async (formData: FormData) => {
     ]);
   }
 
+  const elemen = (formData.get("elemen") as string).toLowerCase();
+  const angkatan =
+    elemen === "mahasiswa"
+      ? (formData.get("angkatan") as string).split(" - ")[1]
+      : null;
+
   const { error } = await adminAuthClient.createUser({
     email,
     password,
@@ -27,8 +33,8 @@ export const signUpAction = async (formData: FormData) => {
       fullname: formData.get("fullname") as string,
       line_id: formData.get("line_id") as string,
       whatsapp_number: formData.get("whatsapp_number") as string,
-      elemen: "mahasiswa",
-      angkatan: "2019",
+      elemen: elemen,
+      angkatan: angkatan,
     },
     email_confirm: true,
   });
