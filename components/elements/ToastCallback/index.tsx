@@ -1,10 +1,26 @@
 "use client";
 import { useEffect } from "react";
 import { toast } from "@/components/hooks/use-toast";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+export const removeToastParams = (searchParams: URLSearchParams): string => {
+  const newSearchParams = new URLSearchParams(searchParams);
+
+  // Remove all toast-related parameters
+  const toastParams = ["toastSuccess", "toastWarning", "toastError"];
+  toastParams.forEach((param) => {
+    newSearchParams.delete(param);
+  });
+
+  // Convert to string, only include ? if there are remaining params
+  const queryString = newSearchParams.toString();
+  return queryString ? `?${queryString}` : "";
+};
 
 const ToastCallback = () => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (searchParams.has("toastSuccess")) {
@@ -25,7 +41,12 @@ const ToastCallback = () => {
         title: "Error",
         description: searchParams.get("toastError"),
       });
+    } else {
+      return;
     }
+
+    const newUrl = `${pathname}${removeToastParams(searchParams)}`;
+    router.replace(newUrl, { scroll: false });
   }, [searchParams]);
 
   return null;
