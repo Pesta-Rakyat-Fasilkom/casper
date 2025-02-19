@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import spothlight from "@/public/landing/spothlight landing.png";
 import logo from "@/public/perak-logo.png";
@@ -25,8 +26,15 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import { useRef } from "react";
 
 export const Landing = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="mainContainer flex flex-col justify-center items-center bg-[#f8dbe9] overflow-hidden relative">
       <div className="container1 w-full h-[750px] sm:h-[900px] relative">
@@ -74,11 +82,15 @@ export const Landing = () => {
             </div>
           </div>
 
-          <p className="z-20 hidden sm:block text-[32px] font-orelega">
-            lorem Ipsum
+          <p className="z-20 hidden sm:block text-[32px] font-orelega text-center mt-10">
+            Siapkan dirimu untuk kembali ke masa keemasan 2000an dan nikmati
+            setiap momen nostalgia di PERAK tahun ini!
           </p>
 
-          <button className="w-[230px] h-[40px] sm:w-[221px] sm:h-[34px] mt-10 sm:mt-8 bg-[#F62455] rounded-[10px] flex gap-[10px] justify-center items-center z-20 hover:shadow-xl ">
+          <button
+            className="w-[230px] h-[40px] sm:w-[221px] sm:h-[34px] mt-10 sm:mt-8 bg-[#F62455] rounded-[10px] flex gap-[10px] justify-center items-center z-20 hover:shadow-xl "
+            onClick={() => handleScroll()}
+          >
             <span className="text-[#FCFBFD] text-[16px] font-poppins z-20 ">
               {" "}
               Mulai jelajah{" "}
@@ -116,7 +128,10 @@ export const Landing = () => {
         </div>
       </div>
 
-      <div className="container2 relative w-full h-[900px] sm:h-[1024px] bg-[#FFE1F9] flex flex-col justify-center items-center gap-8 pb-24 overflow-hidden">
+      <div
+        className="container2 relative w-full h-[900px] sm:h-[1024px] bg-[#FFE1F9] flex flex-col justify-center items-center gap-8 pb-24 overflow-hidden"
+        ref={sectionRef}
+      >
         <Image
           src={union}
           alt="union_object"
@@ -225,7 +240,14 @@ export const Landing = () => {
           </div>
 
           <div className=" col-span-4 row-span-2  sm:row-span-2 lg:col-span-3 flex justify-center items-center w-full h-[600px] sm:h-full">
-            <div className=" bg-[#EAE4FF] w-full h-full border-[4px] border-black"></div>
+            <div className=" bg-[#EAE4FF] w-full h-full border-[4px] border-black text-[32px] font-orelega p-4">
+              Pesta Rakyat Komputer (PERAK) adalah acara tahunan Fasilkom UI
+              yang menghadirkan berbagai kegiatan seru untuk mempererat
+              kebersamaan dan memberikan ruang bagi mahasiswa untuk melepas
+              penat dari kesibukan akademik. Melalui kompetisi olahraga,
+              permainan interaktif, dan berbagai acara spesial, PERAK menjadi
+              ajang refreshing sekaligus wadah untuk mengekspresikan diri.
+            </div>
           </div>
         </div>
       </div>
@@ -278,20 +300,38 @@ export const Landing = () => {
           className="z-50 w-full flex flex-col gap-5 -mt-4"
         >
           <AccordionItem value="item-1" className="z-40">
-            <AccordionTrigger>Judul Item 1</AccordionTrigger>
-            <AccordionContent>Konten untuk Item 1</AccordionContent>
+            <AccordionTrigger>PERAK itu apa sih?</AccordionTrigger>
+            <AccordionContent>
+              <strong>Pesta Rakyat Komputer (PERAK)</strong> adalah acara
+              tahunan Fasilkom UI yang menghadirkan berbagai kegiatan seru untuk
+              mempererat kebersamaan dan memberikan ruang bagi mahasiswa untuk
+              melepas penat dari kesibukan akademik. Melalui kompetisi olahraga,
+              permainan interaktif, dan berbagai acara spesial, PERAK menjadi
+              ajang refreshing sekaligus wadah untuk mengekspresikan diri.
+            </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2" className="z-40">
-            <AccordionTrigger>Judul Item 2</AccordionTrigger>
-            <AccordionContent>Konten untuk Item 2</AccordionContent>
+            <AccordionTrigger>PERAK ini tentang apa sih?</AccordionTrigger>
+            <AccordionContent>
+              Tahun ini, PERAK mengusung tema "Nostalgia 2000an", mengajak kamu
+              untuk kembali ke era penuh kenangan dengan nuansa, musik, dan
+              keseruan khas masa itu.
+            </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3" className="z-40">
-            <AccordionTrigger>Judul Item 3</AccordionTrigger>
-            <AccordionContent>Konten untuk Item 3</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-4" className="z-40">
-            <AccordionTrigger>Judul Item 4</AccordionTrigger>
-            <AccordionContent>Konten untuk Item 4</AccordionContent>
+            <AccordionTrigger>
+              Di PERAK kita bakal ngapain aja sih?
+            </AccordionTrigger>
+            <AccordionContent>
+              Berbagai acara menarik siap memeriahkan PERAK, mulai dari "Ada Apa
+              Dengan peraC?" (penyambutan PERAK dan karaoke night bagi pecinta
+              musik), "Pacil Gathering" (acara yang mempertemukan mahasiswa
+              sampai alumni untuk menjalin kembali kebersamaan lintas angkatan),
+              "LEt’s Go Outing" (kesempatan untuk bersantai dan menikmati
+              suasana luar kampus), hingga "Malam PERAK Berpesta", acara puncak
+              yang menghadirkan pertunjukan spesial dan kemeriahan yang tak
+              terlupakan.
+            </AccordionContent>
           </AccordionItem>
         </Accordion>
       </div>
