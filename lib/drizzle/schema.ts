@@ -111,7 +111,7 @@ export const games = pgTable(
 
 export const teams = pgTable("teams", {
   id: uuid("id").defaultRandom().primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
+  name: varchar("name", { length: 255 }),
   status: teamStatusEnum(),
   game_id: uuid("game_id")
     .references(() => games.id, {
@@ -133,7 +133,8 @@ export const members = pgTable(
       })
       .notNull(),
     role: varchar("role", { length: 255 }),
-    in_game_name: varchar("in_game_name", { length: 255 }),
+    rank: varchar("rank", { length: 255 }),
+    in_game_name: varchar("in_game_name", { length: 255 }).notNull(),
     is_captain: boolean("is_captain").notNull(),
     ...timestamps,
   },

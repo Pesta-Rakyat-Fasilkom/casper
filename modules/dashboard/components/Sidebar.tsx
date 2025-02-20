@@ -1,4 +1,3 @@
-import { JSX } from "react";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -13,33 +12,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { House } from "lucide-react";
 import { LogoutButton } from "@/components/elements/Layout/Navbar/LogoutButton";
-import { games, profiles } from "@/lib/drizzle/schema";
-
-interface SidebarProps {
-  isSidebarOpen: boolean;
-  Games: (typeof games.$inferSelect)[];
-  Navigation: {
-    href: string;
-    label: string;
-    icon: JSX.Element;
-    children: {
-      href: string;
-      label: string;
-      icon: JSX.Element;
-      className?: string;
-    }[];
-  };
-  selectedGame: typeof games.$inferSelect | null;
-  onGameSelect: (game: typeof games.$inferSelect) => void;
-  profile: typeof profiles.$inferSelect;
-}
-
-interface NavLink {
-  href: string;
-  label: string;
-  className?: string;
-  icon?: JSX.Element;
-}
+import { SidebarProps } from "../interface";
+import { NavLink } from "@/components/elements/Layout/Navbar/interface";
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   if (label === "Keluar") {

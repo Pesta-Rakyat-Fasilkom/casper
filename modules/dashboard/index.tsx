@@ -1,8 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import Sidebar from "./components/Sidebar";
 import { Card } from "@/components/ui/card";
-import { User2, Pen, DoorOpen, Menu, X, Link, Edit, House } from "lucide-react";
+import { User2, Pen, DoorOpen, Link, Edit, House } from "lucide-react";
 import Image from "next/image";
 import {
   Accordion,
@@ -16,6 +15,7 @@ import { generateTextOutline } from "@/components/utils/textOutline";
 import { User } from "@supabase/supabase-js";
 import { useState } from "react";
 import { Modal } from "./components/Modal";
+import { SidebarWrapper } from "./components/SidebarWrapper";
 
 let Navigation = {
   href: "#",
@@ -55,7 +55,6 @@ export const Dashboard = ({
   teamsData: FormattedTeam[];
   allGames: (typeof games.$inferSelect)[];
 }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<
     typeof games.$inferSelect | null
   >(null);
@@ -65,36 +64,14 @@ export const Dashboard = ({
     selectedGame === null ? true : game.game_id === selectedGame.id,
   );
 
-  // Handler for game selection
-  const handleGameSelect = (game: typeof games.$inferSelect) => {
-    setSelectedGame(game);
-    setIsSidebarOpen(false); // Close sidebar on mobile after selection
-  };
-
   return (
     <div className="flex">
-      {/* Sidebar Trigger */}
-      <div className="fixed right-4 top-4 w-16 h-16 rounded-xl bg-accents-pink-4 border-4 border-text-dark-3 md:hidden z-50">
-        <button
-          className="w-full h-full"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        >
-          <div className="w-full h-full relative flex justify-center items-center">
-            {isSidebarOpen ? (
-              <X className="scale-[180%] text-text-dark-3" />
-            ) : (
-              <Menu className="scale-[180%] text-text-dark-3" />
-            )}
-          </div>
-        </button>
-      </div>
-      <Sidebar
+      <SidebarWrapper
         Games={allGames}
         Navigation={Navigation}
-        isSidebarOpen={isSidebarOpen}
         selectedGame={selectedGame}
-        onGameSelect={handleGameSelect}
         profile={profile}
+        setSelectedGameAction={setSelectedGame}
       />
       <div className="w-full pl-4 md:pl-[21rem] pr-4">
         <h1
@@ -123,7 +100,7 @@ export const Dashboard = ({
           <div className="h-8 bg-accents-pink-4 border-b-4 border-accents-peach-1 rounded-t-[14px]" />
           <div className="p-8 grid lg:grid-cols-2 gap-x-16 gap-y-8">
             {filteredTeams.length === 0 ? (
-              teamsData.length === 0 ? (
+              selectedGame === null ? (
                 <div className="text-center col-span-2 py-8 text-gray-500">
                   Pilih game dan daftarkan timmu!
                 </div>
@@ -174,7 +151,7 @@ export const Dashboard = ({
                       className="my-4 !font-poppins"
                     >
                       <AccordionItem
-                        value={team.name}
+                        value={team.name!}
                         className="bg-accents-yellow-5 hover:bg-[#fff1c7] border-text-dark-2"
                       >
                         <AccordionTrigger className="font-bold text-base md:text-xl">

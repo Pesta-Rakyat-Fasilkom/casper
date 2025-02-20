@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/drizzle/db";
-import { eq, inArray } from "drizzle-orm";
+import { eq, inArray, and } from "drizzle-orm";
 import { teams, members, games } from "@/lib/drizzle/schema";
 import { FormattedTeam } from "./interface";
 
@@ -46,5 +46,67 @@ export const fetchAllGames = async () => {
     return allGames;
   } catch (error) {
     return [];
+  }
+};
+
+export const createTeamAndMembers = async (formData: FormData) => {
+  try {
+    const terms = formData.get("terms");
+    if (terms !== "on") {
+      return;
+    }
+
+    const ign = formData.get("ign") as string;
+    const gameId = formData.get("gameId") as string;
+    const userId = formData.get("userId") as string;
+    if (!ign || !gameId || !userId) {
+      return;
+    }
+
+    let role = null;
+    let rank = null;
+    let teamName: string | null = formData.get("teamName") as string;
+
+    const registrationType = formData.get("registrationType");
+    if (registrationType === "solo") {
+      role = formData.get("role") as string;
+      rank = formData.get("rank") as string;
+    } else if (registrationType === "captain" || !!teamName) {
+    } else {
+      teamName = null;
+    }
+    const member = await db.transaction(async (tx) => {
+      const [team] = await tx
+        .insert(teams)
+        .values({ name: teamName, game_id: gameId, status: "not_verified" })
+        .returning({ insertedId: teams.id });
+      const [member] = await tx
+        .insert(members)
+        .values({
+          team_id: team.insertedId,
+          profile_id: userId,
+          in_game_name: ign,
+          is_captain: true,
+        })
+        .returning({ insertedId: members.team_id });
+
+      const [result] = await tx
+        .select()
+        .from(members)
+        .where(
+          and(
+            eq(members.team_id, team.insertedId),
+            eq(members.team_id, member.insertedId),
+          ),
+        );
+      return result;
+    });
+
+    if (!member) {
+      return { message: "Gagal mendaftarkan tim!", status: 400 };
+    }
+    return { message: "Berhasil mendaftarkan tim!", status: 201 };
+  } catch (error) {
+    return;
   }
 };

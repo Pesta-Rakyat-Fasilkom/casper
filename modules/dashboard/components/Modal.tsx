@@ -13,6 +13,9 @@ import { games, profiles } from "@/lib/drizzle/schema";
 import { User } from "@supabase/supabase-js";
 import { ArrowRight } from "lucide-react";
 import React, { useState } from "react";
+import { createTeamAndMembers } from "../actions";
+import { SubmitButton } from "@/modules/auth/register/components/SubmitButton";
+import { useRouter } from "next/navigation";
 
 const TeamNameInput = () => {
   return (
@@ -22,7 +25,7 @@ const TeamNameInput = () => {
       </p>
       <input
         type="text"
-        name="team-name"
+        name="teamName"
         placeholder="Nama tim kamu"
         className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-transparent py-2 px-4 placeholder-text-dark-3"
         required
@@ -90,11 +93,10 @@ const ContentTabs = ({ selectedTab }: { selectedTab: string }) => {
         Role
       </p>
       <input
-        type="number"
+        type="text"
         name="role"
         placeholder="Peran kamu"
         className="w-full border-[2px] md:text-base text-sm rounded-[8px] focus:outline-yellow-400 border-accents-blue-3 bg-transparent py-2 px-4 placeholder-text-dark-3"
-        min="1"
         required
       />
     </div>
@@ -111,6 +113,7 @@ export const Modal = ({
   profile: typeof profiles.$inferSelect;
 }) => {
   const [selectedTab, setSelectedTab] = useState<"captain" | "solo">("captain");
+  const router = useRouter();
 
   return (
     <RegistrationModal>
@@ -127,6 +130,8 @@ export const Modal = ({
           </RegistrationModalDescription>
         </RegistrationModalHeader>
         <form className="flex flex-col items-center justify-start">
+          <input type="hidden" name="gameId" value={game.id} />
+          <input type="hidden" name="userId" value={user.id} />
           <div className="w-full mb-4">
             <p className="font-extrabold text-sm md:text-base mb-1 text-left">
               In-Game Name
@@ -164,9 +169,18 @@ export const Modal = ({
               Saya menyetujui Syarat & Ketentuan serta Kebijakan Privasi.
             </label>
           </div>
-          <Button type="submit" className="px-10">
+          <SubmitButton
+            formAction={async (formData: FormData) => {
+              const response = await createTeamAndMembers(formData);
+              if (!!response && response.status === 201) {
+                router.push(`/dashboard?toastSuccess=${response.message}`);
+              }
+            }}
+            className="w-48 h-12 text-lg"
+            pendingText="Mohon tunggu..."
+          >
             Daftar <ArrowRight />
-          </Button>
+          </SubmitButton>
         </form>
       </RegistrationModalContent>
     </RegistrationModal>
