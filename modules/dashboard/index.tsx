@@ -10,86 +10,11 @@ import {
   AccordionTrigger,
   AccordionItem,
 } from "@/components/ui/accordion";
-import { useEffect, useState } from "react";
 import { FormattedTeam } from "./interface";
-import { toast } from "@/components/hooks/use-toast";
-import { fetchAllGames, fetchUserTeams } from "./actions";
-import { getUserWithProfile } from "@/app/actions";
-import { games } from "@/lib/drizzle/schema";
-
-const MyGames = [
-  {
-    team_name: "Team 1",
-    game: "DOTA",
-    status: "Terkonfirmasi",
-    members: [
-      {
-        name: "Player 1",
-        username: "player1",
-        role: "Leader",
-      },
-      {
-        name: "Player 2",
-        username: "player2",
-        role: "Member",
-      },
-      {
-        name: "Player 3",
-        username: "player3",
-        role: "Member",
-      },
-    ],
-  },
-  {
-    team_name: "Team 2",
-    game: "Family Games",
-    status: "Terkonfirmasi",
-    members: [
-      {
-        name: "Player 1",
-        username: "player1",
-        role: "Leader",
-      },
-      {
-        name: "Player 2",
-        username: "player2",
-        role: "Member",
-      },
-      {
-        name: "Player 3",
-        username: "player3",
-        role: "Member",
-      },
-      {
-        name: "Player 4",
-        username: "player4",
-        role: "Member",
-      },
-    ],
-  },
-  {
-    team_name: "Team 3",
-    game: "DOTA",
-    status: "Terkonfirmasi",
-    members: [
-      {
-        name: "Player 1",
-        username: "player1",
-        role: "Leader",
-      },
-      {
-        name: "Player 2",
-        username: "player2",
-        role: "Member",
-      },
-      {
-        name: "Player 3",
-        username: "player3",
-        role: "Member",
-      },
-    ],
-  },
-];
+import { games, profiles } from "@/lib/drizzle/schema";
+import { generateTextOutline } from "@/components/utils/textOutline";
+import { User } from "@supabase/supabase-js";
+import { useState } from "react";
 
 let Navigation = {
   href: "#",
@@ -118,57 +43,24 @@ let Navigation = {
   ],
 };
 
-export const Dashboard = () => {
-  const [teamsData, setTeamsData] = useState<FormattedTeam[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+export const Dashboard = ({
+  user,
+  profile,
+  teamsData,
+  allGames,
+}: {
+  user: User;
+  profile: typeof profiles.$inferSelect;
+  teamsData: FormattedTeam[];
+  allGames: (typeof games.$inferSelect)[];
+}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<
     typeof games.$inferSelect | null
   >(null);
-  const [allGames, setAllGames] = useState<(typeof games.$inferSelect)[]>([]);
-
-  useEffect(() => {
-    const fetchTeams = async () => {
-      setLoading(true);
-
-      try {
-        const { user, profile } = await getUserWithProfile();
-
-        if (!user || !profile) {
-          toast({
-            title: "Error",
-            variant: "error",
-            description: "Error fetching the user!",
-          });
-          setLoading(false);
-          return;
-        }
-
-        Navigation.label = profile.username;
-        const teams = await fetchUserTeams(user.id);
-        setTeamsData(teams);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchGames = async () => {
-      setLoading(true);
-
-      try {
-        const games = await fetchAllGames();
-        setAllGames(games);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGames();
-    fetchTeams();
-  }, []);
 
   // Filter games based on selection
-  const filteredGames = teamsData.filter((game) =>
+  const filteredTeams = teamsData.filter((game) =>
     selectedGame === null ? true : game.game_id === selectedGame.id,
   );
 
@@ -201,47 +93,72 @@ export const Dashboard = () => {
         isSidebarOpen={isSidebarOpen}
         selectedGame={selectedGame}
         onGameSelect={handleGameSelect}
+        profile={profile}
       />
       <div className="w-full pl-4 md:pl-[21rem] pr-4">
-        <h1 className="font-husky-stash text-accents-grey-5 text-6xl sm:text-7xl lg:text-8xl font-outline-2 sm:font-outline-4 mt-4 mb-12">
-          Dashboard
+        <h1
+          className="font-husky-stash text-accents-grey-5 text-6xl sm:text-7xl lg:text-8xl mt-4 mb-12"
+          style={{
+            filter: generateTextOutline({
+              color: "#6F1026",
+              thickness: "4px",
+            }),
+          }}
+        >
+          My Dashboard
         </h1>
         <Card className="border-4 relative border-accents-peach-1 bg-accents-yellow-5 rounded-[18px]">
-          <h1 className="absolute text-5xl sm:text-6xl font-husky-stash text-accents-grey-5 -top-6 font-outline-2 left-4">
-            M y Games
+          <h1
+            className="absolute text-5xl sm:text-6xl font-husky-stash text-accents-grey-5 -top-6 left-4"
+            style={{
+              filter: generateTextOutline({
+                color: "#6F1026",
+                thickness: "2px",
+              }),
+            }}
+          >
+            My Games
           </h1>
           <div className="h-8 bg-accents-pink-4 border-b-4 border-accents-peach-1 rounded-t-[14px]" />
           <div className="p-8 grid lg:grid-cols-2 gap-x-16 gap-y-8">
-            {filteredGames.length === 0 ? (
-              <div className="text-center col-span-2 py-8 text-gray-500">
-                No games found for {selectedGame?.name}
-              </div>
+            {filteredTeams.length === 0 ? (
+              teamsData.length === 0 ? (
+                <div className="text-center col-span-2 py-8 text-gray-500">
+                  Choose a game to register!
+                </div>
+              ) : (
+                <div className="text-center col-span-2 py-8 text-gray-500">
+                  No teams found for {selectedGame?.name}
+                </div>
+              )
             ) : (
-              filteredGames.map((game, idx) => (
+              filteredTeams.map((team, idx) => (
                 <div key={idx}>
                   <Card className="relative bg-accents-yellow-4 border-2 border-black pt-2 px-4 pb-4">
                     <h1 className="text-6xl font-husky-stash text-text-dark-3">
-                      {game.name}
+                      {team.name}
                     </h1>
                     <h2 className="my-4 inline-block text-white font-semibold bg-accents-peach-1 px-2 rounded-sm">
-                      {game.game_id}
+                      {team.id}
                     </h2>
                     <div className="grid md:max-lg:grid-cols-[1fr_12rem] xl:grid-cols-[1fr_12rem] gap-4">
                       <div>
                         <h3 className="font-extrabold">STATUS</h3>
                         <h4 className="px-2 inline-block text-white font-semibold bg-accents-green-3 rounded-sm">
-                          {game.status}
+                          {team.status}
                         </h4>
                       </div>
-                      <Button
-                        variant="ghost"
-                        className="text-black shadow-md border-3 hover:bg-accents-yellow-5"
-                      >
-                        <div className="relative h-8 w-8">
-                          <Image src="./line-icon.svg" fill alt="line" />
-                        </div>
-                        LINE Group
-                      </Button>
+                      {team.status === "verified" && (
+                        <Button
+                          variant="ghost"
+                          className="text-black shadow-md border-3 hover:bg-accents-yellow-5"
+                        >
+                          <div className="relative h-8 w-8">
+                            <Image src="./line-icon.svg" fill alt="line" />
+                          </div>
+                          LINE Group
+                        </Button>
+                      )}
                     </div>
                     <Accordion
                       type="single"
@@ -249,7 +166,7 @@ export const Dashboard = () => {
                       className="my-4 !font-poppins"
                     >
                       <AccordionItem
-                        value={game.name}
+                        value={team.name}
                         className="bg-accents-yellow-5 hover:bg-[#fff1c7] border-text-dark-2"
                       >
                         <AccordionTrigger className="font-bold text-base md:text-xl">
@@ -257,10 +174,10 @@ export const Dashboard = () => {
                         </AccordionTrigger>
                         <AccordionContent>
                           <ul className="space-y-2 text-sm md:text-lg">
-                            {game.members.map((member, idx) => (
+                            {team.members.map((member, idx) => (
                               <li key={idx}>
                                 <div className="font-bold mb-1">
-                                  {member.profile_id}{" "}
+                                  {member.in_game_name}{" "}
                                   {member.is_captain && (
                                     <span className="bg-accents-yellow-2 inline-block text-white rounded-sm px-2">
                                       Leader

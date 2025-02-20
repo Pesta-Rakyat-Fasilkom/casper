@@ -13,7 +13,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { House } from "lucide-react";
 import { LogoutButton } from "@/components/elements/Layout/Navbar/LogoutButton";
-import { games } from "@/lib/drizzle/schema";
+import { games, profiles } from "@/lib/drizzle/schema";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -31,6 +31,7 @@ interface SidebarProps {
   };
   selectedGame: typeof games.$inferSelect | null;
   onGameSelect: (game: typeof games.$inferSelect) => void;
+  profile: typeof profiles.$inferSelect;
 }
 
 interface NavLink {
@@ -66,6 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   Navigation,
   selectedGame,
   onGameSelect,
+  profile,
 }) => {
   return (
     <div
@@ -90,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <Button
                 key={idx}
                 variant="tertiary"
-                className={`text-lg text-text-dark-1 w-full justify-center ${
+                className={`text-lg text-text-dark-1 w-full justify-start ${
                   selectedGame === game ? "bg-accents-pink-3" : ""
                 }`}
                 onClick={() => onGameSelect(game)}
@@ -110,7 +112,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <NavigationMenuItem>
               <NavigationMenuTrigger>
                 {Navigation.icon}
-                <span>{Navigation.label}</span>
+                <span>{profile.username}</span>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="min-w-32 bg-button-secondary rounded-sm p-2">
