@@ -12,6 +12,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { House } from "lucide-react";
+import { LogoutButton } from "@/components/elements/Layout/Navbar/LogoutButton";
+import { signOutAction } from "@/app/actions";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -39,6 +41,21 @@ interface NavLink {
 }
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
+  if (label === "Keluar") {
+    return (
+      <form
+        action={signOutAction}
+        className={cn(
+          navigationMenuTriggerStyle({
+            variant: "secondary",
+          }),
+          `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
+        )}
+      >
+        <LogoutButton icon={icon} />
+      </form>
+    );
+  }
   return (
     <Link
       href={href}
@@ -102,22 +119,24 @@ const Sidebar: React.FC<SidebarProps> = ({
       <div className="relative mt-12">
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem key={Navigation.label}>
+            <NavigationMenuItem>
               <NavigationMenuTrigger>
                 {Navigation.icon}
                 <span>{Navigation.label}</span>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="min-w-32 bg-button-secondary rounded-sm p-2">
-                  {Navigation.children.map((child) => (
-                    <DropdownItem
-                      key={child.label}
-                      label={child.label}
-                      href={child.href}
-                      icon={child.icon}
-                      className={child.className}
-                    />
-                  ))}
+                  {Navigation.children.map((child) => {
+                    return (
+                      <DropdownItem
+                        key={child.label}
+                        label={child.label}
+                        href={child.href}
+                        icon={child.icon}
+                        className={child.className}
+                      />
+                    );
+                  })}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>

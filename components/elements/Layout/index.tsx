@@ -2,29 +2,11 @@ import React from "react";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { Toaster } from "@/components/ui/toaster";
-import { createClient } from "@/utils/supabase/server";
 import ToastCallback from "../ToastCallback";
-import { db } from "@/lib/drizzle/db";
-import { profiles } from "@/lib/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { getUserWithProfile } from "@/app/actions";
 
 export const Layout = async ({ children }: { children: React.ReactNode }) => {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const profile = user
-    ? ((
-        await db
-          .select()
-          .from(profiles)
-          .where(eq(profiles.user_id, user.id))
-          .limit(1)
-      )[0] ?? null)
-    : null;
-
+  const { user, profile } = await getUserWithProfile();
   return (
     <>
       <Navbar user={user} profile={profile} />

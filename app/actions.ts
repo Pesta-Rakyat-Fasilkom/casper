@@ -9,6 +9,31 @@ import { db } from "@/lib/drizzle/db";
 import { eq } from "drizzle-orm";
 import { adminAuthClient } from "@/utils/supabase/admin";
 
+export const getUserWithProfile = async () => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return { user: null, profile: null };
+  }
+
+  const profile = user
+    ? ((
+        await db
+          .select()
+          .from(profiles)
+          .where(eq(profiles.user_id, user.id))
+          .limit(1)
+      )[0] ?? null)
+    : null;
+
+  return { user, profile };
+};
+
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();

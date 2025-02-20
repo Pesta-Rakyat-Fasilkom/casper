@@ -1,11 +1,8 @@
-export interface Team {
-  id: string;
-  name: string;
-  status: string;
-  competition_id: string;
-  created_at: string;
-  members: Member[];
-}
+import { members, teams } from "@/lib/drizzle/schema";
+
+export type FormattedTeam = typeof teams.$inferSelect & {
+  members: (typeof members.$inferSelect)[];
+};
 
 export interface Member {
   id: string;

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Sidebar from "./components/Sidebar";
 import { Card } from "@/components/ui/card";
-import { User2, Pen, DoorOpen, File, Menu, X, Link, Edit } from "lucide-react";
+import { User2, Pen, DoorOpen, Menu, X, Link, Edit, House } from "lucide-react";
 import Image from "next/image";
 import {
   Accordion,
@@ -11,8 +11,11 @@ import {
   AccordionItem,
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
-import { createClient } from "@/utils/supabase/client";
-import { Team } from "./interface";
+import { FormattedTeam } from "./interface";
+import { toast } from "@/components/hooks/use-toast";
+import { fetchUserTeams } from "./actions";
+import { getUserWithProfile } from "@/app/actions";
+import { profiles } from "@/lib/drizzle/schema";
 
 const Games = [
   "Valorant",
@@ -97,16 +100,16 @@ const MyGames = [
   },
 ];
 
-const Navigation = {
+let Navigation = {
   href: "#",
   label: "Username",
   icon: <User2 />,
   children: [
     {
-      href: "#",
-      label: "Landing Page",
-      icon: <File />,
-      className: "hover:bg-[#FF9900] hover:text-text-light-3",
+      href: "/",
+      label: "Home",
+      icon: <House />,
+      className: "hover:bg-[#FF9900] hover:text-text-light-3 text-text-dark-1",
     },
     {
       href: "#",
@@ -115,7 +118,7 @@ const Navigation = {
       className: "hover:bg-[#FF9900] hover:text-text-light-3",
     },
     {
-      href: "#",
+      href: "/auth/logout",
       label: "Keluar",
       icon: <DoorOpen />,
       className:
@@ -125,90 +128,45 @@ const Navigation = {
 };
 
 export const Dashboard = () => {
-  const supabase = createClient();
-  const [teams, setTeams] = useState<Team[]>([]);
+  const [teamsData, setTeamsData] = useState<FormattedTeam[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState("All Games");
+  const [profile, setProfile] = useState<typeof profiles.$inferSelect | null>(
+    null,
+  );
 
   useEffect(() => {
-    const fetchTeamsAndMembers = async () => {
+    const fetchTeams = async () => {
       setLoading(true);
 
-      // Step 1: Get current user
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
+      try {
+        const { user, profile } = await getUserWithProfile();
 
-      if (userError || !user) {
-        console.error("Error fetching user:", userError);
+        if (!user || !profile) {
+          toast({
+            title: "Error",
+            variant: "error",
+            description: "Error fetching the user!",
+          });
+          setLoading(false);
+          return;
+        }
+
+        Navigation.label = profile.username;
+        const teams = await fetchUserTeams(user.id);
+        setTeamsData(teams);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      // Step 2: Get the teams where the user is a member
-      const { data: memberTeams, error: memberError } = await supabase
-        .from("members")
-        .select("team_id")
-        .eq("profile_id", user.id);
-
-      if (memberError) {
-        console.error("Error fetching member teams:", memberError);
-        setLoading(false);
-        return;
-      }
-
-      const teamIds = memberTeams.map((member) => member.team_id);
-      if (teamIds.length === 0) {
-        setTeams([]); // User is not in any teams
-        setLoading(false);
-        return;
-      }
-
-      // Step 3: Fetch team details
-      const { data: teamsData, error: teamsError } = await supabase
-        .from("teams")
-        .select("id, name, status, competition_id, created_at")
-        .in("id", teamIds);
-
-      if (teamsError) {
-        console.error("Error fetching teams:", teamsError);
-        setLoading(false);
-        return;
-      }
-
-      // Step 4: Fetch members for each team
-      const { data: membersData, error: membersError } = await supabase
-        .from("members")
-        .select(
-          "id, profile_id, team_id, role, in_game_name, is_captain, created_at"
-        )
-        .in("team_id", teamIds);
-
-      if (membersError) {
-        console.error("Error fetching members:", membersError);
-        setLoading(false);
-        return;
-      }
-
-      // Step 5: Merge members into their respective teams
-      const teamsWithMembers = teamsData.map((team) => ({
-        ...team,
-        members: membersData.filter((member) => member.team_id === team.id),
-      }));
-
-      setTeams(teamsWithMembers);
-      setLoading(false);
     };
 
-    fetchTeamsAndMembers();
-    console.log(teams);
+    fetchTeams();
   }, []);
 
   // Filter games based on selection
-  const filteredGames = teams.filter((game) =>
-    selectedGame === "All Games" ? true : game.competition_id === selectedGame
+  const filteredGames = teamsData.filter((game) =>
+    selectedGame === "All Games" ? true : game.competition_id === selectedGame,
   );
 
   // Handler for game selection
@@ -299,14 +257,14 @@ export const Dashboard = () => {
                             {game.members.map((member, idx) => (
                               <li key={idx}>
                                 <div className="font-bold mb-1">
-                                  {member.id}{" "}
+                                  {member.profile_id}{" "}
                                   {member.is_captain && (
                                     <span className="bg-accents-yellow-2 inline-block text-white rounded-sm px-2">
                                       Leader
                                     </span>
                                   )}
                                 </div>
-                                {member.id}
+                                {member.profile_id}
                               </li>
                             ))}
                           </ul>

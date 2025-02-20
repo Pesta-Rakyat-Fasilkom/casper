@@ -11,6 +11,7 @@ import {
   boolean,
   check,
 } from "drizzle-orm/pg-core";
+import { primaryKey } from "drizzle-orm/pg-core";
 
 // ENUMS
 export const elemenEnum = pgEnum("elemen", [
@@ -75,7 +76,7 @@ export const profiles = pgTable("profiles", {
 export const competitions = pgTable(
   "competitions",
   {
-    id: uuid("id").primaryKey(),
+    id: uuid("id").defaultRandom().primaryKey(),
     min_member: integer("min_member").notNull(),
     max_member: integer("max_member").notNull(),
     is_team_competition: boolean("is_team").notNull(),
@@ -103,23 +104,32 @@ export const competitions = pgTable(
 );
 
 export const teams = pgTable("teams", {
-  id: uuid("id").primaryKey(),
+  id: uuid("id").defaultRandom().primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   status: teamStatusEnum(),
-  competition_id: uuid("competition_id").references(() => competitions.id, {
-    onDelete: "cascade",
-  }),
+  competition_id: uuid("competition_id")
+    .references(() => competitions.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
   ...timestamps,
 });
 
-export const members = pgTable("members", {
-  id: uuid("id").primaryKey(),
-  team_id: uuid("team_id").references(() => teams.id, { onDelete: "cascade" }),
-  profile_id: uuid("profile_id").references(() => profiles.user_id, {
-    onDelete: "cascade",
-  }),
-  role: varchar("role", { length: 255 }),
-  in_game_name: varchar("in_game_name", { length: 255 }),
-  is_captain: boolean("is_captain").notNull(),
-  ...timestamps,
-});
+export const members = pgTable(
+  "members",
+  {
+    team_id: uuid("team_id")
+      .references(() => teams.id, { onDelete: "cascade" })
+      .notNull(),
+    profile_id: uuid("profile_id")
+      .references(() => profiles.user_id, {
+        onDelete: "cascade",
+      })
+      .notNull(),
+    role: varchar("role", { length: 255 }),
+    in_game_name: varchar("in_game_name", { length: 255 }),
+    is_captain: boolean("is_captain").notNull(),
+    ...timestamps,
+  },
+  (table) => [primaryKey({ columns: [table.team_id, table.profile_id] })],
+);
