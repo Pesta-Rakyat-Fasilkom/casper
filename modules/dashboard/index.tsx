@@ -13,18 +13,9 @@ import {
 import { useEffect, useState } from "react";
 import { FormattedTeam } from "./interface";
 import { toast } from "@/components/hooks/use-toast";
-import { fetchUserTeams } from "./actions";
+import { fetchAllGames, fetchUserTeams } from "./actions";
 import { getUserWithProfile } from "@/app/actions";
-import { profiles } from "@/lib/drizzle/schema";
-
-const Games = [
-  "Valorant",
-  "Marvel Rivals",
-  "Mobile Legends",
-  "Tekken",
-  "Football Club 2025",
-  "Stumble Guys",
-];
+import { games } from "@/lib/drizzle/schema";
 
 const MyGames = [
   {
@@ -102,7 +93,7 @@ const MyGames = [
 
 let Navigation = {
   href: "#",
-  label: "Username",
+  label: "",
   icon: <User2 />,
   children: [
     {
@@ -131,10 +122,10 @@ export const Dashboard = () => {
   const [teamsData, setTeamsData] = useState<FormattedTeam[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [selectedGame, setSelectedGame] = useState("All Games");
-  const [profile, setProfile] = useState<typeof profiles.$inferSelect | null>(
-    null,
-  );
+  const [selectedGame, setSelectedGame] = useState<
+    typeof games.$inferSelect | null
+  >(null);
+  const [allGames, setAllGames] = useState<(typeof games.$inferSelect)[]>([]);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -161,16 +152,28 @@ export const Dashboard = () => {
       }
     };
 
+    const fetchGames = async () => {
+      setLoading(true);
+
+      try {
+        const games = await fetchAllGames();
+        setAllGames(games);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGames();
     fetchTeams();
   }, []);
 
   // Filter games based on selection
   const filteredGames = teamsData.filter((game) =>
-    selectedGame === "All Games" ? true : game.competition_id === selectedGame,
+    selectedGame === null ? true : game.game_id === selectedGame.id,
   );
 
   // Handler for game selection
-  const handleGameSelect = (game: string) => {
+  const handleGameSelect = (game: typeof games.$inferSelect) => {
     setSelectedGame(game);
     setIsSidebarOpen(false); // Close sidebar on mobile after selection
   };
@@ -193,7 +196,7 @@ export const Dashboard = () => {
         </button>
       </div>
       <Sidebar
-        Games={Games}
+        Games={allGames}
         Navigation={Navigation}
         isSidebarOpen={isSidebarOpen}
         selectedGame={selectedGame}
@@ -211,7 +214,7 @@ export const Dashboard = () => {
           <div className="p-8 grid lg:grid-cols-2 gap-x-16 gap-y-8">
             {filteredGames.length === 0 ? (
               <div className="text-center col-span-2 py-8 text-gray-500">
-                No games found for {selectedGame}
+                No games found for {selectedGame?.name}
               </div>
             ) : (
               filteredGames.map((game, idx) => (
@@ -221,7 +224,7 @@ export const Dashboard = () => {
                       {game.name}
                     </h1>
                     <h2 className="my-4 inline-block text-white font-semibold bg-accents-peach-1 px-2 rounded-sm">
-                      {game.competition_id}
+                      {game.game_id}
                     </h2>
                     <div className="grid md:max-lg:grid-cols-[1fr_12rem] xl:grid-cols-[1fr_12rem] gap-4">
                       <div>

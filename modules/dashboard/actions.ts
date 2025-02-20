@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/drizzle/db";
 import { eq, inArray } from "drizzle-orm";
-import { teams, members, users } from "@/lib/drizzle/schema";
+import { teams, members, games } from "@/lib/drizzle/schema";
 import { FormattedTeam } from "./interface";
 
 export const fetchUserTeams = async (
@@ -36,6 +36,15 @@ export const fetchUserTeams = async (
     }));
   } catch (error) {
     console.error("Error fetching teams and members:", error);
+    return [];
+  }
+};
+
+export const fetchAllGames = async () => {
+  try {
+    const allGames = await db.select().from(games);
+    return allGames;
+  } catch (error) {
     return [];
   }
 };

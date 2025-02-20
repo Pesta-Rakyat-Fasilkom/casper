@@ -73,13 +73,13 @@ export const profiles = pgTable("profiles", {
   ...timestamps,
 });
 
-export const competitions = pgTable(
-  "competitions",
+export const games = pgTable(
+  "games",
   {
     id: uuid("id").defaultRandom().primaryKey(),
     min_member: integer("min_member").notNull(),
     max_member: integer("max_member").notNull(),
-    is_team_competition: boolean("is_team").notNull(),
+    is_team_game: boolean("is_team_game").notNull(),
     name: varchar("name", { length: 255 }).notNull().unique(),
     description: text("description"),
     image_url: text("image_url"),
@@ -97,8 +97,8 @@ export const competitions = pgTable(
     check("fee_check", sql`${table.registration_fee} >= 0`),
     check(
       "team_competition_check",
-      sql`(${table.is_team_competition} = true AND ${table.min_member} > 1)
-      OR (${table.is_team_competition} = false AND ${table.min_member} = 1 AND ${table.max_member} = 1)`,
+      sql`(${table.is_team_game} = true AND ${table.min_member} > 1)
+      OR (${table.is_team_game} = false AND ${table.min_member} = 1 AND ${table.max_member} = 1)`,
     ),
   ],
 );
@@ -107,8 +107,8 @@ export const teams = pgTable("teams", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   status: teamStatusEnum(),
-  competition_id: uuid("competition_id")
-    .references(() => competitions.id, {
+  game_id: uuid("game_id")
+    .references(() => games.id, {
       onDelete: "cascade",
     })
     .notNull(),

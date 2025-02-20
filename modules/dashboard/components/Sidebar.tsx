@@ -13,10 +13,11 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { House } from "lucide-react";
 import { LogoutButton } from "@/components/elements/Layout/Navbar/LogoutButton";
+import { games } from "@/lib/drizzle/schema";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
-  Games: string[];
+  Games: (typeof games.$inferSelect)[];
   Navigation: {
     href: string;
     label: string;
@@ -28,8 +29,8 @@ interface SidebarProps {
       className?: string;
     }[];
   };
-  selectedGame: string;
-  onGameSelect: (game: string) => void;
+  selectedGame: typeof games.$inferSelect | null;
+  onGameSelect: (game: typeof games.$inferSelect) => void;
 }
 
 interface NavLink {
@@ -70,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <div
       className={`${isSidebarOpen && "translate-x-0"} w-80 flex flex-col items-center px-8 inset-y-0 fixed bg-accents-pink-4 border-r-4 min-[1441px]:border-x-4 border-section-4 rounded-r-md min-[1441px]:rounded-md -translate-x-full md:translate-x-0 transition z-10`}
     >
-      <div>
+      <div className="w-full">
         <div className="w-full h-20 relative my-14">
           <Image
             src="/perak-logo-2.png"
@@ -89,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <Button
                 key={idx}
                 variant="tertiary"
-                className={`text-lg text-text-dark-1 w-full justify-start ${
+                className={`text-lg text-text-dark-1 w-full justify-center ${
                   selectedGame === game ? "bg-accents-pink-3" : ""
                 }`}
                 onClick={() => onGameSelect(game)}
@@ -97,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <div className="relative w-6 h-6">
                   <Image src="/star.svg" fill alt="star" />
                 </div>
-                {game}
+                {game.name}
               </Button>
             ))}
           </div>
