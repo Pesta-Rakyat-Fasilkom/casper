@@ -15,6 +15,7 @@ import { games, profiles } from "@/lib/drizzle/schema";
 import { generateTextOutline } from "@/components/utils/textOutline";
 import { User } from "@supabase/supabase-js";
 import { useState } from "react";
+import { Modal } from "./components/Modal";
 
 let Navigation = {
   href: "#",
@@ -124,11 +125,18 @@ export const Dashboard = ({
             {filteredTeams.length === 0 ? (
               teamsData.length === 0 ? (
                 <div className="text-center col-span-2 py-8 text-gray-500">
-                  Choose a game to register!
+                  Pilih game dan daftarkan timmu!
                 </div>
               ) : (
-                <div className="text-center col-span-2 py-8 text-gray-500">
-                  No teams found for {selectedGame?.name}
+                <div className="col-span-2 py-8 font-orelega flex flex-col items-center gap-5">
+                  <p className="text-text-dark-1 text-3xl text-center w-2/3">
+                    {" "}
+                    Hey,{" "}
+                    <span className="text-text-dark-3">{profile.username}</span>
+                    ! Kamu belum daftar lomba ini. Ayo daftar sekarang sebelum
+                    terlambat!
+                  </p>
+                  <Modal game={selectedGame!} user={user} profile={profile} />
                 </div>
               )
             ) : (

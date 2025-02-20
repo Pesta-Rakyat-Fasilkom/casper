@@ -80,6 +80,7 @@ export const games = pgTable(
     min_member: integer("min_member").notNull(),
     max_member: integer("max_member").notNull(),
     is_team_game: boolean("is_team_game").notNull(),
+    can_solo: boolean("can_solo").notNull(),
     name: varchar("name", { length: 255 }).notNull().unique(),
     description: text("description"),
     image_url: text("image_url"),
@@ -96,8 +97,13 @@ export const games = pgTable(
     check("date_check", sql`${table.start_date} < ${table.end_date}`),
     check("fee_check", sql`${table.registration_fee} >= 0`),
     check(
+      "solo_check",
+      sql`(NOT ${table.is_team_game} AND NOT ${table.can_solo})
+                        OR ${table.is_team_game}`,
+    ),
+    check(
       "team_competition_check",
-      sql`(${table.is_team_game} = true AND ${table.min_member} > 1)
+      sql`(${table.is_team_game} = true AND ((${table.can_solo} = false AND ${table.min_member} > 1) OR (${table.can_solo} = true AND ${table.min_member} = 1)))
       OR (${table.is_team_game} = false AND ${table.min_member} = 1 AND ${table.max_member} = 1)`,
     ),
   ],
