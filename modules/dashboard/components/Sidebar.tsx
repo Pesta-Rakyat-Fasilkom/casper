@@ -13,7 +13,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { House } from "lucide-react";
 import { LogoutButton } from "@/components/elements/Layout/Navbar/LogoutButton";
-import { signOutAction } from "@/app/actions";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -42,19 +41,7 @@ interface NavLink {
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   if (label === "Keluar") {
-    return (
-      <form
-        action={signOutAction}
-        className={cn(
-          navigationMenuTriggerStyle({
-            variant: "secondary",
-          }),
-          `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
-        )}
-      >
-        <LogoutButton icon={icon} />
-      </form>
-    );
+    return <LogoutButton icon={icon} className="w-full" />;
   }
   return (
     <Link

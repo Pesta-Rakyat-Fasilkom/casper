@@ -177,29 +177,3 @@ export const signOutAction = async () => {
     { key: "toastSuccess", value: "Berhasil keluar." },
   ]);
 };
-
-export const currentUserAction = async () => {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  console.log(user);
-
-  if (!user) {
-    return null;
-  }
-
-  const profile = await db.query.profiles.findFirst({
-    where: eq(profiles.user_id, user.id),
-  });
-
-  console.log(profile);
-
-  if (!profile) {
-    return null;
-  }
-
-  return { user, profile };
-};

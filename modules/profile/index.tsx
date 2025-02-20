@@ -1,21 +1,22 @@
-import { Button } from "@/components/ui/button";
 import { maskPassword } from "@/lib/utils";
-import Link from "next/link";
-import { currentUserAction } from "@/app/actions";
+import { getUserWithProfile } from "@/app/actions";
 
 interface ProfileProps {
   params: Promise<{ userId: string }>;
 }
 
 export async function Profile({ params }: ProfileProps) {
-  const userId = (await params).userId;
-  const data = await currentUserAction();
+  const { user, profile } = await getUserWithProfile();
 
-  if (!data) {
-    return <></>;
+  if (!user || !profile) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-center text-[#700F32] font-poppins font-bold text-lg">
+          Profile tidak ditemukan
+        </p>
+      </div>
+    );
   }
-
-  const { user, profile } = data;
 
   return (
     <>
@@ -65,8 +66,8 @@ export async function Profile({ params }: ProfileProps) {
           ></InputBox>
         </div>
       </div>
-      {/*
-      <Link href={`/profile/${userId}/edit`}>
+      {/**
+      <Link href={`/profile/edit`}>
         <Button
           className="mt-4 bg-[#F62455] !rounded-xl  shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-poppins text-white !px-4 !py-7 font-bold z-10"
           size={"sm"}

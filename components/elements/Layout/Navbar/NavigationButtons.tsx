@@ -11,25 +11,12 @@ import Link from "next/link";
 import React from "react";
 import { NavItems, NavLink } from "./interface";
 import { cn } from "@/lib/utils";
-import { signOutAction } from "@/app/actions";
 import { LogoutButton } from "./LogoutButton";
 import { User } from "@supabase/supabase-js";
 
 const DropdownItem: React.FC<NavLink> = ({ href, label, icon, className }) => {
   if (label === "Keluar") {
-    return (
-      <form
-        action={signOutAction}
-        className={cn(
-          navigationMenuTriggerStyle({
-            variant: "secondary",
-          }),
-          `text-text-dark-1 w-full rounded-sm justify-start ${className}`,
-        )}
-      >
-        <LogoutButton icon={icon} />
-      </form>
-    );
+    return <LogoutButton icon={icon} />;
   }
   return (
     <Link
